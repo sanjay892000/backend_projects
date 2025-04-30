@@ -41,12 +41,20 @@ router.get('/addlisting', async (req, res) => {
 
 router.post('/listing/newlisting', async (req, res) => {
     try {
-        console.log(req.body.listing)
-        await listingModel.create(req.body.listing)
+       let list = await listingModel.create(req.body.listing)
         res.redirect('/listing');
-
+        res.status(200).send({
+            success: true,
+            message: "Listing added successfully",
+            data: list
+        });
     } catch (error) {
-
+        
+        res.status(500).send({
+            success: false,
+            message: "Error adding listing",
+            error: error
+        });
     }
 })
     ;

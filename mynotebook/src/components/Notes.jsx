@@ -11,6 +11,7 @@ const Notes = () => {
   const goOnTheTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+  
   useEffect(() => {
     if (localStorage.getItem('token')) {
       getNotes();
@@ -34,7 +35,7 @@ const Notes = () => {
           </svg>
 
         </h1>
-        {allNotes.length !== 0 ? <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
+        {allNotes.length != 0 ? <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
           {allNotes.map((value, i) => {
             return <NoteCard key={i} passNotes={value} />
           })}

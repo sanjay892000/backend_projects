@@ -32,7 +32,7 @@
                                 <label class="sr-only" for="description">Description</label>
 
                                 <textarea class="w-full border rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Description" name="listing[description]" rows="8" id="description"></textarea>
+                                    placeholder="Description" name="listing[description]" rows="4" id="description"></textarea>
                             </div>
 
                             <div>
@@ -41,12 +41,7 @@
                                     placeholder="Image Link" name="listing[image]" type="url" id="image" />
                             </div>
 
-                            <div>
-                                <label class="sr-only" for="Location">Location</label>
-                                <input class="w-full border rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Location" name="listing[location]" type="text" id="Location" />
-                            </div>
-
+                            
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
                                     <label class="sr-only" for="price">Price</label>
@@ -57,14 +52,20 @@
                                 <div>
                                     <label class="sr-only" for="country">Country</label>
                                     <input class="w-full border rounded-lg border-gray-200 p-3 text-sm" name="listing[country]"
-                                        placeholder="Country" type="tel" id="country" />
+                                    placeholder="Country" type="tel" id="country" />
                                 </div>
+                            </div>
+                            
+                            <div>
+                                <label class="sr-only" for="Location">Location</label>
+                                <input class="w-full border rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Location" name="listing[location]" type="text" id="Location" />
                             </div>
 
                             <div class="mt-5">
                                 <button type="submit"
                                     class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto">
-                                    Send Enquiry
+                                    Add Listing
                                 </button>
                             </div>
                         </form>
