@@ -21,7 +21,7 @@ function Login() {
 
             if (data.success) {
                 localStorage.setItem('token', data.token)
-                toast.success('Your account has been logged in successfully', {
+                toast.success(data.message, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -34,7 +34,7 @@ function Login() {
                 navigate('/')
             }
             else {
-                toast.error('Invalid email or password', {
+                toast.error(data.message, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,

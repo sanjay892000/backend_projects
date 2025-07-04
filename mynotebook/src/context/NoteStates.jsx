@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react'
+import React, { useState } from 'react'
 import { noteContext } from './noteContext'
 import baseUrls from '../baseUrls';
 

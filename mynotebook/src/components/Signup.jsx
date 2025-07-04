@@ -21,7 +21,7 @@ function Signup() {
             const data = await response.json();
             console.log(data)
             if (data.success) {
-                toast.success('Your account has been created successfully', {
+                toast.success(data.message, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -35,7 +35,7 @@ function Signup() {
 
             }
             else{
-                toast.error('Invalid credentials', {
+                toast.error(data.message, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
