@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const Contact = require("../schema/contact.model");
+const Contact = require("../../schema/contact.model");
 
 const contact =(req,res)=>{
     const {name, email,subject, massage} = req.body;
