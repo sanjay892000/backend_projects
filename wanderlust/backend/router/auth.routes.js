@@ -13,3 +13,5 @@ router.post('/login', login);
 router.get('/getuser', isVerifyAuth, getAuth);
 router.put('/updateuser', isVerifyAuth, updateAuth);
 router.delete('/deleteuser', isVerifyAuth, deleteAuth);
+
+module.exports = router;

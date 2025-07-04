@@ -10,4 +10,6 @@ const deletePost = require('../controllers/wanderlust/deletepost');
 router.post('/addpost', isVerifyAuth, addPost);
 router.get('/getpost', isVerifyAuth, getPost);
 router.put('/updatepost/:id', isVerifyAuth, updatePost);
-router.delete('/deletepost/:id', isVerifyAuth, deletePost)
+router.delete('/deletepost/:id', isVerifyAuth, deletePost);
+
+module.exports = router;

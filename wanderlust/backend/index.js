@@ -16,10 +16,9 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
-
-
-
-
+app.use('/api/auth', require('./router/auth.routes'));
+app.use('/api/message', require('./router/contact.routes'));
+/* app.use('/api/wanderlust', require('./router/wanderlust.routes')); */
 
 app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
