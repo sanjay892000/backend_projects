@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
    <div class="bg-gray-900">
         <div class="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div class="relative flex items-center justify-between">
-                <a href="/" aria-label="Company" title="Company" class="inline-flex items-center">
+                <Link to="/" aria-label="Company" title="Company" class="inline-flex items-center">
                     <svg class="w-8 text-teal-accent-400" viewBox="0 0 24 24" stroke-linejoin="round" stroke-width="2"
                         stroke-linecap="round" stroke-miterlimit="10" stroke="currentColor" fill="white">
                         <rect x="3" y="1" width="7" height="12"></rect>
@@ -14,27 +15,27 @@ function Navbar() {
                         <rect x="14" y="11" width="7" height="12"></rect>
                     </svg>
                     <span class="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">Prabhat</span>
-                </a>
+                </Link>
                 <ul class="flex items-center hidden space-x-8 lg:flex">
-                    <li><a href="/" aria-label="Our product" title="Our product"
-                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Home</a>
+                    <li><Link to="/" aria-label="Our product" title="Our product"
+                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Home</Link>
                     </li>
-                    <li><a href="/listing" aria-label="Our product" title="Our product"
-                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Listing</a>
+                    <li><Link to="/listing" aria-label="Our product" title="Our product"
+                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Listing</Link>
                     </li>
-                    <li><a href="/addlisting" aria-label="Product pricing" title="Product pricing"
-                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Add Listing</a>
+                    <li><Link to="/addlisting" aria-label="Product pricing" title="Product pricing"
+                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">Add Listing</Link>
                     </li>
-                    <li><a href="/about" aria-label="About us" title="About us"
-                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">About</a></li>
+                    <li><Link to="/about" aria-label="About us" title="About us"
+                            class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">About</Link></li>
                 </ul>
                 <ul class="flex items-center hidden space-x-8 lg:flex">
                     <li>
-                        <a href="/"
+                        <Link to="/"
                             class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                             aria-label="Sign up" title="Sign up">
                            Login
-                        </a>
+                        </Link>
                     </li>
                 </ul>
                 <div class="lg:hidden">
