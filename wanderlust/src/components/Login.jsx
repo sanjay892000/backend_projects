@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Login() {
     return (
-        <section className="bg-white px-10">
+        <section className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-10">
             <div className="lg:grid lg:grid-cols-12 pt-10">
                 <section className="relative flex h-24 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
                     <img

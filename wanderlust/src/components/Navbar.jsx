@@ -1,9 +1,21 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { useThemeContext } from '../contextapi/themeContext/themeContext'
 
 function Navbar() {
+
+    const { theme, darkMode, lightMode } = useThemeContext()
+
+    const toggleTheme = () => {
+        if (theme === 'light') {
+            darkMode()
+        } else {
+            lightMode()
+        }
+    }
+
     return (
-        <div className="bg-gray-900 fixed top-0 left-0 z-50 w-full">
+        <div className="bg-gray-900 dark:bg-gray-950 fixed top-0 left-0 z-50 w-full">
             <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
                 <div className="relative flex items-center justify-between">
                     <Link to="/" aria-label="Company" title="Company" className="inline-flex items-center">
@@ -18,22 +30,22 @@ function Navbar() {
                     </Link>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
                         <li><NavLink to="/" aria-label="Our product" title="Our product"
-                            className={({isActive})=>`font-medium tracking-wide ${isActive ?'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' :'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Home</NavLink>
+                            className={({ isActive }) => `font-medium tracking-wide ${isActive ? 'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' : 'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Home</NavLink>
                         </li>
                         <li><NavLink to="/listing" aria-label="Our product" title="Our product"
-                            className={({isActive})=>`font-medium tracking-wide ${isActive ?'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' :'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Explore Stays</NavLink>
+                            className={({ isActive }) => `font-medium tracking-wide ${isActive ? 'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' : 'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Explore Stays</NavLink>
                         </li>
                         <li><NavLink to="/addlisting" aria-label="Product pricing" title="Product pricing"
-                            className={({isActive})=>`font-medium tracking-wide ${isActive ?'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' :'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Add Listing</NavLink>
+                            className={({ isActive }) => `font-medium tracking-wide ${isActive ? 'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' : 'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Add Listing</NavLink>
                         </li>
                         <li><NavLink to="/about" aria-label="About us" title="About us"
-                            className={({isActive})=>`font-medium tracking-wide ${isActive ?'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' :'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>About</NavLink></li>
+                            className={({ isActive }) => `font-medium tracking-wide ${isActive ? 'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' : 'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>About</NavLink></li>
                         <li><NavLink to="/contact" aria-label="About us" title="About us"
-                           className={({isActive})=>`font-medium tracking-wide ${isActive ?'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' :'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Contact</NavLink></li>
+                            className={({ isActive }) => `font-medium tracking-wide ${isActive ? 'relative transition-all duration-300 ease-linear bottom-2 pb-2 border-b-orange-100 border-b-2 text-orange-600' : 'text-gray-100'} transition-colors duration-200 hover:text-teal-accent-400`}>Contact</NavLink></li>
                     </ul>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
-                        <li className='text-white text-xl'>
-                            <i className="fa-solid fa-sun"></i>
+                        <li className='text-white text-xl' onClick={toggleTheme}>
+                            {theme =='dark' ? <i className="fa-solid fa-sun"></i> : <i class="fa-solid fa-moon"></i>}
                         </li>
                         <li className='text-white text-xl'>
                             <i className="fa-solid fa-bell"></i>

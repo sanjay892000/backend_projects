@@ -6,7 +6,7 @@ function Home() {
     <>
       <div class="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
         <div class="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
-          <svg class="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block" viewBox="0 0 100 100" fill="currentColor" preserveAspectRatio="none slice">
+          <svg class="absolute left-0 hidden h-full text-white dark:text-gray-800 transform -translate-x-1/2 lg:block" viewBox="0 0 100 100" fill="currentColor" preserveAspectRatio="none slice">
             <path d="M50 0H100L50 100H0L50 0Z"></path>
           </svg>
           <img
@@ -20,11 +20,11 @@ function Home() {
             <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
               The super
             </p>
-            <h2 class="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+            <h2 class="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-none">
               easy way to prabhat<br class="hidden md:block" />
               your place&nbsp;<span class="inline-block text-deep-purple-accent-400">is real</span>
             </h2>
-            <p class="pr-5 mb-5 text-base text-gray-700 md:text-lg">
+            <p class="pr-5 mb-5 text-base text-gray-700 dark:text-gray-300 md:text-lg">
               Prabhat Setup makes it easier to put your place on Prabhat, with hands-on help from a Superhost from your first question to your first guest.
             </p>
             <div class="flex items-center">
@@ -34,14 +34,14 @@ function Home() {
               >
                 List your Home
               </a>
-              <a href="/about" aria-label="" class="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700">Learn more</a>
+              <a href="/about" aria-label="" class="inline-flex items-center font-semibold text-gray-800 dark:text-gray-300 transition-colors duration-200 hover:text-deep-purple-accent-700">Learn more</a>
             </div>
           </div>
         </div>
       </div>
 
 
-       <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+       <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 ">
               <div class="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
                 <ListingCard />
                 <ListingCard />
@@ -59,7 +59,7 @@ function Home() {
                   Brand new
                 </p>
               </div>
-              <h2 class="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              <h2 class="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl md:mx-auto">
                 <span class="relative inline-block">
                   <svg viewBox="0 0 52 24" fill="currentColor" class="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block">
                     <defs>
@@ -73,7 +73,7 @@ function Home() {
                 </span>
                 &nbsp;Easy to list your home on Prabhat
               </h2>
-              <p class="text-base text-gray-700 md:text-lg">
+              <p class="text-base text-gray-900 dark:text-gray-300 md:text-lg">
                 Prabhat guests are interested in all kinds of places – spare rooms, flats, houses, holiday homes, even treehouses.
               </p>
             </div>
@@ -82,7 +82,7 @@ function Home() {
                 placeholder="Email"
                 required=""
                 type="text"
-                class="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                class="flex-grow w-full h-12 px-4 mb-3 bg-gray-100 dark:bg-gray-800 border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
               />
               <button
                 type="submit"
@@ -91,13 +91,13 @@ function Home() {
                 Subscribe
               </button>
             </form>
-            <p class="max-w-md mx-auto mb-10 text-xs text-gray-600 sm:text-sm md:mb-16">
+            <p class="max-w-md mx-auto mb-10 text-xs text-gray-900 dark:text-gray-100 sm:text-sm md:mb-16">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
             </p>
             <a
               href="/"
               aria-label="Scroll down"
-              class="flex items-center justify-center w-10 h-10 mx-auto text-gray-600 duration-300 transform border border-gray-400 rounded-full hover:text-deep-purple-accent-400 hover:border-deep-purple-accent-400 hover:shadow hover:scale-110"
+              class="flex items-center justify-center w-10 h-10 mx-auto text-gray-900 dark:text-gray-100 duration-300 transform border border-gray-400 rounded-full hover:text-deep-purple-accent-400 hover:border-deep-purple-accent-400 hover:shadow hover:scale-110"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
                 <path d="M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z"></path>

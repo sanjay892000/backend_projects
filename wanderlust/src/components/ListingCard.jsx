@@ -2,7 +2,7 @@ import React from 'react'
 
 function ListingCard() {
   return (
-    <div class="overflow-hidden relative transition-shadow duration-300 bg-white rounded">
+    <div class="overflow-hidden bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 relative transition-shadow duration-300 rounded">
                         <div class="absolute top-0 right-0 bg-white/75 px-3 text-xl py-2 rounded-bl rounded-tr">
                             <i class="mx-2 fa-solid fa-pen-to-square"></i>
                             <i class="mx-2 text-red-600 fa-solid fa-eraser"></i>
@@ -11,31 +11,31 @@ function ListingCard() {
                             <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
                                 class="object-cover w-full h-64 rounded" alt="" />
                             </a>
-                        <div class="py-5">
-                            <p class="mb-2 text-xs font-semibold text-gray-600 uppercase">
+                        <div class="py-5 px-5">
+                            <p class="mb-2 text-xs font-semibold text-gray-500 uppercase">
                              Thu Feb 27 2025
                             </p>
                             <a href="/" aria-label="Article"
-                                class="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700">
+                                class="inline-block mb-3 text-gray-950 dark:text-gray-50 transition-colors duration-200 hover:text-deep-purple-accent-700">
                                 <p class="text-2xl font-bold leading-5">
                                    listing title
                                 </p>
                             </a>
-                            <p class="mb-1 text-gray-700">
+                            <p class="mb-1 text-gray-900 dark:text-gray-300">
                               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi ut odio sit? Fugit corporis eius, vitae cupiditate quasi ex nemo!
                             </p>
-                            <p class="mb-1 font-[700] text-gray-700">
+                            <p class="mb-1 font-[700] text-gray-900 dark:text-gray-100">
                                 Price: <span class="font-[600]">
                                    2099&nbsp;₹
                                 </span>
                             </p>
                             <div class="flex flex-col mb-4 w-full justify-center pr-10">
-                                <p class="mb-1 font-[700] text-gray-700">
+                                <p class="mb-1 font-[700] text-gray-900 dark:text-gray-100">
                                     Location: <span class="font-[600]">
                                         Lucknow
                                     </span>
                                 </p>
-                                <p class="font-[700] text-gray-700">
+                                <p class="font-[700] text-gray-900 dark:text-gray-100">
                                     Country: <span class="font-[600]">
                                        India
                                     </span>

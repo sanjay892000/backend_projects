@@ -2,7 +2,7 @@ import React from 'react'
 
 function AddListing() {
     return (
-        <section className="bg-gray-100">
+        <section className="bg-gray-100 dark:bg-gray-900 transition-all duration-300 ease-in-out text-gray-900 dark:text-gray-100">
             <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                     <div className="lg:col-span-2 lg:py-12">
@@ -19,7 +19,7 @@ function AddListing() {
                         </div>
                     </div>
 
-                    <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+                    <div className="rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-8 shadow-lg lg:col-span-3 lg:p-12">
                         <form action="/listing/newlisting" method="POST" className="space-y-4">
                             <div>
                                 <label className="sr-only" for="title">Title</label>

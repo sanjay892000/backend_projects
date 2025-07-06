@@ -12,26 +12,33 @@ import AddListing from './components/AddListing.jsx'
 import Contact from './components/Contact';
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
+import ThemeState from './contextapi/themeContext/ThemeState.jsx'
+import DataState from './contextapi/dataContext/dataState.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-   
-      <Route path='/' element={<App />} >
-        <Route path='' element={<Home />} />
-        <Route path='listing' element={<Listing />} />
-        <Route path='addlisting' element={<AddListing />} />
-        <Route path='about' element={<About />} />
-        <Route path='contact' element={<Contact />} />
-        <Route path='login' element={<Login />} />
-        <Route path='signup' element={<Signup />} />
 
-      </Route>
-    
+    <Route path='/' element={<App />} >
+      <Route path='' element={<Home />} />
+      <Route path='listing' element={<Listing />} />
+      <Route path='addlisting' element={<AddListing />} />
+      <Route path='about' element={<About />} />
+      <Route path='contact' element={<Contact />} />
+      <Route path='login' element={<Login />} />
+      <Route path='signup' element={<Signup />} />
+
+    </Route>
+
   )
 )
 
 
 createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}>
-  </RouterProvider>,
+  <StrictMode>
+    <ThemeState>
+      <DataState>
+        <RouterProvider router={router} />
+      </DataState>
+    </ThemeState>
+  </StrictMode>
 )
