@@ -16,10 +16,10 @@ function Footer() {
                     </a>
                     <div class="mt-6 lg:max-w-sm">
                         <p class="text-sm text-gray-800">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                            Find Your Perfect Stay. Host Easily. Travel Freely. 
                         </p>
                         <p class="mt-4 text-sm text-gray-800">
-                            Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Prabhat is a modern platform that connects travelers with hosts offering unique stays across the country. Whether you're looking for a cozy room, an entire home, or a peaceful retreat, Prabhat helps you find the perfect place to stay.
                         </p>
                     </div>
                 </div>

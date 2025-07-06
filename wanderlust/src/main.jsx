@@ -9,15 +9,21 @@ import ListingDetails from './components/ListingDetails'
 
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import AddListing from './components/AddListing.jsx'
+import Contact from './components/Contact';
+import Login from './components/Login.jsx'
+import Signup from './components/Signup.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
    
       <Route path='/' element={<App />} >
         <Route path='' element={<Home />} />
-        <Route path='about' element={<About />} />
         <Route path='listing' element={<Listing />} />
         <Route path='addlisting' element={<AddListing />} />
+        <Route path='about' element={<About />} />
+        <Route path='contact' element={<Contact />} />
+        <Route path='login' element={<Login />} />
+        <Route path='signup' element={<Signup />} />
 
       </Route>
     

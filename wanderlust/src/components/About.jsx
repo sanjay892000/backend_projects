@@ -19,12 +19,12 @@ function About() {
                             </defs>
                             <rect fill="url(#27df4f81-c854-45de-942a-fe90f7a300f9)" width="52" height="24"></rect>
                         </svg>
-                        <span class="relative">The</span>
+                        <span class="relative">Find&nbsp;</span>
                     </span>
-                    quick, brown fox jumps over a lazy dog
+                   Your Perfect Stay. Host Easily. Travel Freely.
                 </h2>
                 <p class="text-base text-gray-700 md:text-lg">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque rem aperiam, eaque ipsa quae.
+                   Prabhat is a modern platform that connects travelers with hosts offering unique stays across the country. Whether you're looking for a cozy room, an entire home, or a peaceful retreat, Prabhat helps you find the perfect place to stay.
                 </p>
             </div>
             <div class="grid max-w-screen-lg gap-8 row-gap-10 mx-auto lg:grid-cols-2">
@@ -37,9 +37,9 @@ function About() {
                         </div>
                     </div>
                     <div>
-                        <h6 class="mb-3 text-xl font-bold leading-5">The deep ocean</h6>
+                        <h6 class="mb-3 text-xl font-bold leading-5"> What is Prabhat?</h6>
                         <p class="mb-3 text-sm text-gray-900">
-                            A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear. We never had the chance to.
+                            Prabhat is a platform that helps people find and book places to stay — from private rooms to entire homes. It connects hosts who want to rent out their space with travelers looking for affordable and unique stays.
                         </p>
                         <a href="/" aria-label="" class="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800">Learn more</a>
                     </div>
@@ -53,9 +53,9 @@ function About() {
                         </div>
                     </div>
                     <div>
-                        <h6 class="mb-3 text-xl font-bold leading-5">When has justice</h6>
+                        <h6 class="mb-3 text-xl font-bold leading-5">How does it work?</h6>
                         <p class="mb-3 text-sm text-gray-900">
-                            Rough pomfret lemon shark plownose chimaera southern sandfish kokanee northern sea robin Antarctic cod. Yellow-and-black triplefin gulper South American Lungfish mahi-mahi, butterflyfish glass catfish soapfish ling gray mullet!
+                            Guests can search for listings by location, date, and price. Once they find a suitable place, they can book it directly through the platform. Hosts can create listings, upload images, set availability, and manage bookings from their dashboard.
                         </p>
                         <a href="/" aria-label="" class="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800">Learn more</a>
                     </div>
@@ -69,9 +69,9 @@ function About() {
                         </div>
                     </div>
                     <div>
-                        <h6 class="mb-3 text-xl font-bold leading-5">Organically grow</h6>
+                        <h6 class="mb-3 text-xl font-bold leading-5">Who can become a host?</h6>
                         <p class="mb-3 text-sm text-gray-900">
-                            A slice of heaven. O for awesome, this chocka full cuzzie is as rip-off as a cracker. Meanwhile, in behind the bicycle shed, Hercules Morse, as big as a horse and Mrs Falani were up to no good with a bunch of crook pikelets.
+                            Anyone with a clean, safe, and comfortable space can become a host. Whether it’s a spare bedroom, a guesthouse, or a vacation home — Prabhat makes it easy to list and earn.
                         </p>
                         <a href="/" aria-label="" class="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800">Learn more</a>
                     </div>
@@ -85,9 +85,9 @@ function About() {
                         </div>
                     </div>
                     <div>
-                        <h6 class="mb-3 text-xl font-bold leading-5">A slice of heaven</h6>
+                        <h6 class="mb-3 text-xl font-bold leading-5"> Is booking safe and secure?</h6>
                         <p class="mb-3 text-sm text-gray-900">
-                            Disrupt inspire and think tank, social entrepreneur but preliminary thinking think tank compelling. Inspiring, invest synergy capacity building, white paper; silo, unprecedented challenge B-corp problem-solvers.
+                            Yes! Prabhat uses secure payment gateways and encrypted data protection. We also support verified user profiles, reviews, and real-time messaging to ensure trust between guests and hosts.
                         </p>
                         <a href="/" aria-label="" class="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800">Learn more</a>
                     </div>

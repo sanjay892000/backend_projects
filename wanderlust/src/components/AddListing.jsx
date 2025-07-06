@@ -2,69 +2,68 @@ import React from 'react'
 
 function AddListing() {
     return (
-        <section class="bg-gray-100">
-            <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
-                    <div class="lg:col-span-2 lg:py-12">
-                        <h1 class="font-bold py-2 text-2xl ">Add New Listing</h1>
-                        <p class="max-w-xl text-lg">
-                            At the same time, the fact that we are wholly owned and totally independent from
-                            manufacturer and other group control gives you confidence that we will only recommend what
-                            is right for you.
+        <section className="bg-gray-100">
+            <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+                    <div className="lg:col-span-2 lg:py-12">
+                        <h1 className="font-bold py-2 text-2xl ">Listing Your Place </h1>
+                        <p className="max-w-xl text-lg">
+                            Share your space and start earning today! List your room, apartment, or home in just a few easy steps. Add photos, set your price, and describe your place — we’ll help you reach thousands of travelers looking for stays like yours.
+                            
                         </p>
 
-                        <div class="mt-8">
-                            <a href="#" class="text-2xl font-bold text-pink-600"> 0151 475 4450 </a>
+                        <div className="mt-8">
+                            <a href="#" className="text-2xl font-bold text-orange-600"> Start hosting with Prabhat today! </a>
 
-                            <address class="mt-2 not-italic">282 Kevin Brook, Imogeneborough, CA 58517</address>
+                            <address className="mt-2 not-italic">282 Kevin Brook, Imogeneborough, CA 58517</address>
                         </div>
                     </div>
 
-                    <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-                        <form action="/listing/newlisting" method="POST" class="space-y-4">
+                    <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+                        <form action="/listing/newlisting" method="POST" className="space-y-4">
                             <div>
-                                <label class="sr-only" for="title">Title</label>
-                                <input class="w-full border rounded-lg border-gray-200 p-3 text-sm" placeholder="Title"
+                                <label className="sr-only" for="title">Title</label>
+                                <input className="w-full border rounded-lg border-gray-200 p-3 text-sm" placeholder="Title"
                                     name="listing[title]" type="text" id="title" />
                             </div>
 
                             <div>
-                                <label class="sr-only" for="description">Description</label>
+                                <label className="sr-only" for="description">Description</label>
 
-                                <textarea class="w-full border rounded-lg border-gray-200 p-3 text-sm"
+                                <textarea className="w-full border rounded-lg border-gray-200 p-3 text-sm"
                                     placeholder="Description" name="listing[description]" rows="4" id="description"></textarea>
                             </div>
 
                             <div>
-                                <label class="sr-only" for="image">Image Link</label>
-                                <input class="w-full border rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Image Link" name="listing[image]" type="url" id="image" />
+                                <label className="sr-only" for="image">Image</label>
+                                <input className="w-full border rounded-lg border-gray-200 p-3 text-sm"
+                                     name="listing[image]" type="file" id="image" />
                             </div>
 
 
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label class="sr-only" for="price">Price</label>
-                                    <input class="w-full border rounded-lg border-gray-200 p-3 text-sm"
+                                    <label className="sr-only" for="price">Price</label>
+                                    <input className="w-full border rounded-lg border-gray-200 p-3 text-sm"
                                         placeholder="Price" type="number" name="listing[price]" id="price" />
                                 </div>
 
                                 <div>
-                                    <label class="sr-only" for="country">Country</label>
-                                    <input class="w-full border rounded-lg border-gray-200 p-3 text-sm" name="listing[country]"
+                                    <label className="sr-only" for="country">Country</label>
+                                    <input className="w-full border rounded-lg border-gray-200 p-3 text-sm" name="listing[country]"
                                         placeholder="Country" type="tel" id="country" />
                                 </div>
                             </div>
 
                             <div>
-                                <label class="sr-only" for="Location">Location</label>
-                                <input class="w-full border rounded-lg border-gray-200 p-3 text-sm"
+                                <label className="sr-only" for="Location">Location</label>
+                                <input className="w-full border rounded-lg border-gray-200 p-3 text-sm"
                                     placeholder="Location" name="listing[location]" type="text" id="Location" />
                             </div>
 
-                            <div class="mt-5">
+                            <div className="mt-5">
                                 <button type="submit"
-                                    class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto">
+                                    className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto">
                                     Add Listing
                                 </button>
                             </div>

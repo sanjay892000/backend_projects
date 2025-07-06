@@ -1,9 +1,10 @@
 import React from 'react'
+import ListingCard from './ListingCard'
 
 function Home() {
   return (
     <>
-         <div class="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
+      <div class="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
         <div class="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
           <svg class="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block" viewBox="0 0 100 100" fill="currentColor" preserveAspectRatio="none slice">
             <path d="M50 0H100L50 100H0L50 0Z"></path>
@@ -17,28 +18,37 @@ function Home() {
         <div class="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
           <div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
             <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
-              Brand new
+              The super
             </p>
             <h2 class="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-              Everything you<br class="hidden md:block" />
-              can imagine
-              <span class="inline-block text-deep-purple-accent-400">is real</span>
+              easy way to prabhat<br class="hidden md:block" />
+              your place&nbsp;<span class="inline-block text-deep-purple-accent-400">is real</span>
             </h2>
             <p class="pr-5 mb-5 text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. explicabo.
+              Prabhat Setup makes it easier to put your place on Prabhat, with hands-on help from a Superhost from your first question to your first guest.
             </p>
             <div class="flex items-center">
               <a
                 href="/addlisting"
                 class="inline-flex bg-gray-800 items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
               >
-                Get started
+                List your Home
               </a>
               <a href="/about" aria-label="" class="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700">Learn more</a>
             </div>
           </div>
         </div>
       </div>
+
+
+       <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+              <div class="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+                <ListingCard />
+                <ListingCard />
+                <ListingCard />
+              </div>
+            </div>
+
 
       <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
         <div class="max-w-2xl mx-auto sm:max-w-xl md:max-w-2xl">
@@ -59,12 +69,12 @@ function Home() {
                     </defs>
                     <rect fill="url(#b039bae0-fdd5-4311-b198-8557b064fce0)" width="52" height="24"></rect>
                   </svg>
-                  <span class="relative">The</span>
+                  <span class="relative">It’s</span>
                 </span>
-                quick, brown fox jumps over a lazy dog
+                &nbsp;Easy to list your home on Prabhat
               </h2>
               <p class="text-base text-gray-700 md:text-lg">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque rem aperiam, eaque ipsa quae.
+                Prabhat guests are interested in all kinds of places – spare rooms, flats, houses, holiday homes, even treehouses.
               </p>
             </div>
             <form class="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
