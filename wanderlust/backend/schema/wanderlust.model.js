@@ -36,11 +36,9 @@ const wanderlust = new mongoose.Schema({
     like: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Register',
-        default: [],
     }],
     rating: {
         type: Number,
-        required: true,
         min: 0,
         max: 5
     },

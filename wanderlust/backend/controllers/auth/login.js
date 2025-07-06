@@ -24,7 +24,7 @@ const loginFun = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, secretKey);
-        res.status(2001).json({
+        res.status(201).json({
             message: "login successfully ",
             status: true,
             auth: user,
