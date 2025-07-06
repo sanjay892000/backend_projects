@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useThemeContext } from '../contextapi/themeContext/themeContext'
-
+import { useDataContext } from '../contextapi/dataContext/dataContext'
 function Navbar() {
 
+    const navigate = useNavigate()
     const { theme, darkMode, lightMode } = useThemeContext()
-
+    const { logoutFun } = useDataContext()
     const toggleTheme = () => {
         if (theme === 'light') {
             darkMode()
@@ -45,17 +46,21 @@ function Navbar() {
                     </ul>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
                         <li className='text-white text-xl' onClick={toggleTheme}>
-                            {theme =='dark' ? <i className="fa-solid fa-sun"></i> : <i class="fa-solid fa-moon"></i>}
+                            {theme == 'dark' ? <i className="fa-solid fa-sun"></i> : <i class="fa-solid fa-moon"></i>}
                         </li>
                         <li className='text-white text-xl'>
                             <i className="fa-solid fa-bell"></i>
                         </li>
                         <li>
-                            <Link to="/login"
+                            {localStorage.getItem('token') ? <Link
+                                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                aria-label="Sign up" title="Sign up" onClick={() => logoutFun(navigate)}>
+                                Logout
+                            </Link> : <Link to="/login"
                                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                                 aria-label="Sign up" title="Sign up">
                                 Login
-                            </Link>
+                            </Link>}
                         </li>
                     </ul>
                     <div className="lg:hidden">

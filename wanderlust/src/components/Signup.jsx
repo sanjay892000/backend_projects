@@ -1,7 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDataContext } from '../contextapi/dataContext/dataContext';
 
 function Signup() {
+    const { signupFun } = useDataContext()
+    const navigate = useNavigate()
+    const [user, setUser] = useState({ fname: "", lname: "", email: "", password: "", con_password: "" });
+    const [term_condition, setTerm_condition] = useState(false);
+    const changeHandler = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value })
+    }
+    const submitHandler = (e) => {
+        e.preventDefault();
+        console.log(term_condition)
+        if (term_condition && (user.password == user.con_password)) {
+            const auth = {
+                name: `${user.fname + user.lname}`,
+                email: user.email,
+                password: user.password,
+                terms_condition: term_condition
+            }
+            signupFun(auth, navigate)
+        }
+    }
+
     return (
         <section className="bg-gray-100 dark:bg-gray-900  text-gray-900 dark:text-gray-100 px-10 p-6">
             <div className="lg:grid lg:grid-cols-12 pt-10">
@@ -68,70 +90,85 @@ function Signup() {
                             </p>
                         </div>
 
-                        <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+                        <form className="mt-8 grid grid-cols-6 gap-6" onSubmit={submitHandler}>
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="FirstName" className="pb-1 block text-sm font-medium text-gray-900 dark:text-gray-100">
                                     First Name
                                 </label>
 
                                 <input
                                     type="text"
                                     id="FirstName"
-                                    name="first_name"
+                                    name="fname"
                                     placeholder='First Name'
-                                    className="w-full px-3 py-2 outline-none focus:outline  focus:outline-orange-500 border rounded-md dark:border-gray-300 dark:text-gray-800 focus:dark:border-orange-500"
+                                    value={user.fname}
+                                    onChange={changeHandler}
+                                    className="w-full px-3  py-2 outline-none focus:outline  focus:outline-orange-500 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:dark:border-orange-500"
+                                    required
                                 />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="LastName" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="LastName" className="pb-1 block text-sm font-medium text-gray-900 dark:text-gray-100">
                                     Last Name
                                 </label>
 
                                 <input
                                     type="text"
                                     id="LastName"
-                                    name="last_name"
+                                    name="lname"
                                     placeholder='Last Name'
-                                    className="w-full px-3 py-2 outline-none focus:outline  focus:outline-orange-500 border rounded-md dark:border-gray-300 dark:text-gray-800 focus:dark:border-orange-500"
+                                    value={user.lname}
+                                    onChange={changeHandler}
+                                    className="w-full px-3  py-2 outline-none focus:outline  focus:outline-orange-500 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:dark:border-orange-500"
+                                    required
                                 />
                             </div>
 
                             <div className="col-span-6">
-                                <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> Email </label>
+                                <label htmlFor="email" className="pb-1 block text-sm font-medium text-gray-900 dark:text-gray-100"> Email </label>
 
                                 <input
                                     type="email"
-                                    id="Email"
+                                    id="email"
                                     name="email"
+                                    value={user.email}
+                                    onChange={changeHandler}
                                     placeholder='Your Email'
-                                    className="w-full px-3 py-2 outline-none focus:outline  focus:outline-orange-500 border rounded-md dark:border-gray-300 dark:text-gray-800 focus:dark:border-orange-500"
+                                    className="w-full px-3  py-2 outline-none focus:outline  focus:outline-orange-500 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:dark:border-orange-500"
+                                    required
                                 />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="Password" className="block text-sm font-medium text-gray-700"> Password </label>
+                                <label htmlFor="Password" className="pb-1 block text-sm font-medium text-gray-900 dark:text-gray-100"> Password </label>
 
                                 <input
                                     type="password"
                                     id="Password"
+                                    value={user.password}
                                     name="password"
+                                    onChange={changeHandler}
                                     placeholder='Password'
-                                    className="w-full px-3 py-2 outline-none focus:outline  focus:outline-orange-500 border rounded-md dark:border-gray-300 dark:text-gray-800 focus:dark:border-orange-500"
+                                    className="w-full px-3  py-2 outline-none focus:outline  focus:outline-orange-500 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:dark:border-orange-500"
+                                    required
                                 />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="PasswordConfirmation" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="PasswordConfirmation" className="pb-1 block text-sm font-medium text-gray-900 dark:text-gray-100">
                                     Password Confirmation
                                 </label>
 
                                 <input
                                     type="password"
                                     id="PasswordConfirmation"
-                                    name="password_confirmation"
+                                    name="con_password"
+                                    value={user.con_password}
+                                    onChange={changeHandler}
                                     placeholder='Confirm Password'
-                                    className="w-full px-3 py-2 outline-none focus:outline  focus:outline-orange-500 border rounded-md dark:border-gray-300 dark:text-gray-800 focus:dark:border-orange-500"
+                                    className="w-full px-3  py-2 outline-none focus:outline  focus:outline-orange-500 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:dark:border-orange-500"
+                                    required
                                 />
                             </div>
 
@@ -142,33 +179,31 @@ function Signup() {
                                         id="MarketingAccept"
                                         name="marketing_accept"
                                         className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
+                                        onChange={(e) => setTerm_condition(e.target.checked)}
+                                        required
                                     />
 
-                                    <span className="text-sm text-gray-700">
-                                        I want to receive emails about events, product updates and company announcements.
+                                    <span className="text-sm text-gray-900 dark:text-gray-100">
+                                        By creating an account, you agree to our
+                                        <a href="#" className="text-gray-900 dark:text-gray-100 underline"> terms and conditions </a>
+                                        and
+                                        <a href="#" className="text-gray-900 dark:text-gray-100 underline">privacy policy</a>.
                                     </span>
                                 </label>
                             </div>
 
-                            <div className="col-span-6">
-                                <p className="text-sm text-gray-500">
-                                    By creating an account, you agree to our
-                                    <a href="#" className="text-gray-700 underline"> terms and conditions </a>
-                                    and
-                                    <a href="#" className="text-gray-700 underline">privacy policy</a>.
-                                </p>
-                            </div>
-
                             <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                                <button
-                                    className="inline-block shrink-0 rounded-md border border-orange-600 bg-orange-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-orange-500"
-                                >
+                                {term_condition && (user.password === user.con_password) ? <button
+                                    className="inline-block shrink-0 rounded-md border border-orange-600 bg-orange-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-orange-500" >
                                     Create an account
-                                </button>
+                                </button> : <button
+                                    className="inline-block shrink-0 rounded-md border border-orange-600 bg-orange-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-orange-500 disabled:pointer-events-none disabled:opacity-50" disabled>
+                                    Create an account
+                                </button>}
 
                                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                     Already have an account?
-                                    <Link to="/login" className="text-gray-700 underline font-semibold text-orange-500">&nbsp;Log in</Link>.
+                                    <Link to="/login" className="text-gray-900 dark:text-gray-100 underline font-semibold text-orange-500">&nbsp;Log in</Link>.
                                 </p>
                             </div>
                         </form>

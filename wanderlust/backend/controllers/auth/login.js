@@ -19,14 +19,14 @@ const loginFun = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(404).json({
                 message: "invalid email or password",
-                status: false
+                success: false
             });
         }
 
         const token = jwt.sign({ id: user._id }, secretKey);
         res.status(201).json({
             message: "login successfully ",
-            status: true,
+            success: true,
             auth: user,
             token: token
         });

@@ -13,7 +13,8 @@ import Contact from './components/Contact';
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import ThemeState from './contextapi/themeContext/ThemeState.jsx'
-import DataState from './contextapi/dataContext/dataState.jsx'
+import DataState from './contextapi/dataContext/DataState.jsx'
+import { ToastContainer } from 'react-toastify'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,18 @@ createRoot(document.getElementById('root')).render(
     <ThemeState>
       <DataState>
         <RouterProvider router={router} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </DataState>
     </ThemeState>
   </StrictMode>

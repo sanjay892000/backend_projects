@@ -19,6 +19,10 @@ const register = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    terms_condition:{
+        type:Boolean,
+        default:false
     }
 
 }, { timestamps: true });

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const signupFun = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, terms_condition } = req.body;
 
     try {
         const user = await registerModel.findOne({ email: email });
@@ -21,7 +21,8 @@ const signupFun = async (req, res) => {
         const newUser = await registerModel.create({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            terms_condition
         });
 
         res.status(201).json({
