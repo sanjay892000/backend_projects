@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import dataContext from './dataContext';
+import authContext from './authContext';
 import baseUrls from '../../baseUrls';
 import { toast } from 'react-toastify';
 
-function DataState({ children }) {
+function AuthState({ children }) {
 
   const [auth, setAuth] = useState({})
 
@@ -111,10 +111,10 @@ function DataState({ children }) {
   }
 
   return (
-    <dataContext.Provider value={{ auth, signupFun, loginFun, logoutFun, updateAuthFun, getAuthFun }}>
+    <authContext.Provider value={{ auth, signupFun, loginFun, logoutFun, updateAuthFun, getAuthFun }}>
       {children}
-    </dataContext.Provider>
+    </authContext.Provider>
   )
 }
 
-export default DataState;
+export default AuthState;

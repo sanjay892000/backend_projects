@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDataContext } from '../contextapi/dataContext/dataContext';
-
+import { useAuthContext } from '../contextapi/authContext/authContext';
 function Signup() {
-    const { signupFun } = useDataContext()
+    const { signupFun } = useAuthContext();
     const navigate = useNavigate()
     const [user, setUser] = useState({ fname: "", lname: "", email: "", password: "", con_password: "" });
     const [term_condition, setTerm_condition] = useState(false);
@@ -193,7 +192,7 @@ function Signup() {
                             </div>
 
                             <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                                {term_condition && (user.password === user.con_password) ? <button
+                                {term_condition && user.password === user.con_password && user.password.length && user.con_password.length ? <button
                                     className="inline-block shrink-0 rounded-md border border-orange-600 bg-orange-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-orange-500" >
                                     Create an account
                                 </button> : <button

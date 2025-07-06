@@ -13,8 +13,9 @@ import Contact from './components/Contact';
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import ThemeState from './contextapi/themeContext/ThemeState.jsx'
-import DataState from './contextapi/dataContext/DataState.jsx'
+import AuthState from './contextapi/authContext/AuthState.jsx'
 import { ToastContainer } from 'react-toastify'
+import ListingState from './contextapi/listingContext/Listingstate.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,21 +38,23 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeState>
-      <DataState>
-        <RouterProvider router={router} />
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-      </DataState>
+      <AuthState>
+        <ListingState>
+          <RouterProvider router={router} />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </ListingState>
+      </AuthState>
     </ThemeState>
   </StrictMode>
 )

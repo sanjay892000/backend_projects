@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { useDataContext } from '../contextapi/dataContext/dataContext';
-
+import { useAuthContext } from '../contextapi/authContext/authContext';
 function Login() {
 
-    const { loginFun } = useDataContext();
+    const { loginFun } = useAuthContext();
     const navigate = useNavigate();
     const [auth, setAuth] = useState({ email: "", password: "" });
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useThemeContext } from '../contextapi/themeContext/themeContext'
-import { useDataContext } from '../contextapi/dataContext/dataContext'
+import { useAuthContext } from '../contextapi/authContext/authContext'
 function Navbar() {
 
     const navigate = useNavigate()
     const { theme, darkMode, lightMode } = useThemeContext()
-    const { logoutFun } = useDataContext()
+    const { logoutFun } = useAuthContext()
     const toggleTheme = () => {
         if (theme === 'light') {
             darkMode()
