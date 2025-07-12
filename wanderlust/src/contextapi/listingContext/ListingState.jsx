@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import listingContext from './listingContext';
 import { toast } from 'react-toastify';
+import baseUrls from './../../baseUrls';
 
 function ListingState({ children }) {
 
@@ -31,17 +32,38 @@ function ListingState({ children }) {
         });
     }
 
-    const addListing = async(listing)=>{}
-    const getAllListings = async()=>{}
-    const deleteListing = async(id)=>{}
-    const updateListing = async(id, listing)=>{}
-    const getListingByUser = async(id)=>{}
-   
+    const addListing = async (listing) => {
+        try {
+            const response = await fetch(`${baseUrls}/api/wanderlust/addpost`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                },
+                body: JSON.stringify(listing)
+            });
+            const data = await response.json();
+            if (data.success) {
+                successToast(data.message)
+            }
+            else {
+                errorToast(data.message)
+            }
+        } catch (error) {
+            errorToast('Internal server error!')
+        }
+
+    }
+    const getAllListings = async () => { }
+    const deleteListing = async (id) => { }
+    const updateListing = async (id, listing) => { }
+    const getListingByUser = async (id) => { }
+
 
 
 
     return (
-        <listingContext.Provider value={{allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, getListingByUser}}>
+        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, getListingByUser }}>
             {children}
         </listingContext.Provider>
     )

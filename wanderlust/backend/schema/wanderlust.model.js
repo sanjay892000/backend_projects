@@ -15,8 +15,8 @@ const wanderlust = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: true,
-        trim: true
+        trim: true,
+        default: "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg"
     },
     location: {
         type: String,
@@ -37,17 +37,20 @@ const wanderlust = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Register',
     }],
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5
-    },
+    rating: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Rating"
+    }],
     createdby: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Register',
     }
 
-}, { timestamps: true });
+}, {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
 
 /* wanderlust.virtuals = {
     likesCount: {
@@ -57,7 +60,7 @@ const wanderlust = new mongoose.Schema({
     }
 }; */
 
-wanderlust.virtual('likesCount').get(function() {
+wanderlust.virtual('total_like').get(function () {
     return this.like.length;
 });
 
