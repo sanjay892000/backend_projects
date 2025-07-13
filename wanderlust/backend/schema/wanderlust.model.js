@@ -11,7 +11,8 @@ const commentSchema = new mongoose.Schema({
   text: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    lowercase: true,
   },
 }, { _id: false, timestamps:true }); // You can keep `_id: true` if you want comment IDs
 
@@ -21,12 +22,14 @@ const wanderlust = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        lowercase: true,
         minlength: 10,
-        maxlength: 100
+        maxlength: 150
     },
     description: {
         type: String,
         required: true,
+        lowercase: true,
         trim: true
     },
     image: {
@@ -37,11 +40,13 @@ const wanderlust = new mongoose.Schema({
     location: {
         type: String,
         required: true,
+        lowercase: true,
         trim: true
     },
     country: {
         type: String,
         required: true,
+        lowercase: true,
         trim: true
     },
     price: {
@@ -65,35 +70,15 @@ const wanderlust = new mongoose.Schema({
 
 }, {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toJSON: { virtuals: true }, // Ensure virtuals are included when converting to JSON
+    toObject: { virtuals: true } // Ensure virtuals are included when converting to objects
 });
 
-/* wanderlust.virtuals = {
-    total_like: {
-        get() {
-            return this.like.length;
-        }
-    }
-};
-wanderlust.virtuals = {
-    total_rating: {
-        get() {
-            return this.like.length;
-        }
-    }
-};
-wanderlust.virtuals = {
-    total_comments: {
-        get() {
-            return this.like.length;
-        }
-    }
-}; */
 
+// Virtuals for total counts it means it will not be stored in the database but can be used in queries 
 wanderlust.virtual('total_like').get(function () {
     return this.like.length;
-});
+}); 
 
 wanderlust.virtual('total_rating').get(function () {
   return this.rating?.length || 0; 

@@ -12,7 +12,13 @@ const getPost = async (req, res) => {
                     select: "name email"
                 }
             })
-            .populate("comment.user", "name email avatar") // Sort by creation date, most recent first
+            .populate({
+                path: "comment",
+                populate: {
+                    path: "user",
+                    select: "name email avatar"
+                }
+            })
             .populate("createdby","name email avatar")
             .lean({ virtuals: true }); // include likesCount virtual
 

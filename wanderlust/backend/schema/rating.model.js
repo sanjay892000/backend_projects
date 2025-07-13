@@ -19,6 +19,7 @@ const ratingSchema = new mongoose.Schema({
     },
     comment: {
         type: String,
+        lowercase: true,
         trim: true
     }
 }, { timestamps: true });
