@@ -22,7 +22,7 @@ const addPost = async (req, res) => {
         return res.status(201).json({
             success: true,
             message: "Post added successfully",
-            data: addlist
+            post: addlist
         });
     } catch (error) {
         return res.status(500).json({

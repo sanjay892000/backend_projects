@@ -41,8 +41,10 @@ const likepost = async (req, res) => {
             .lean({ virtuals: true }); // include likesCount virtual
         return res.status(200).json({
             success: true,
-            message: isLiked ? "Post liked successfully" : "Post unliked successfully",
-            data: updatedPost
+            message: isLiked ? "liked post!" : "unliked post!",
+            total_likes: updatedPost.like.length,
+            isLiked,
+            post: updatedPost
         });
     } catch (error) {
         console.error('Error liking post:', error);

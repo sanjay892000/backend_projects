@@ -32,8 +32,8 @@ const getPost = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Posts retrieved successfully",
-            total_post: allList.length,
-            data:allList
+            total_results: allList.length,
+            results:allList
         });
         
     } catch (error) {

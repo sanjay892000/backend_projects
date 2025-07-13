@@ -12,19 +12,22 @@ const getAuth = async (req, res) => {
 
         if (!auth) {
             return res.status(404).json({
-                message: 'User not found',
-                success: false
+                success: false,
+                message: 'User not found'
             });
         }
 
         res.status(200).json({
-            message: 'User authenticated',
             success: true,
+            message: 'User authenticated',
             auth: auth
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
     }
 }
 

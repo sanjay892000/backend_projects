@@ -26,7 +26,7 @@ const commentPost = async (req, res) => {
         return res.status(201).json({
             success: true,
             message: "Comment added successfully",
-            data: post.comment
+            comment: post.comment
         });
     } catch (error) {
         console.error(error);

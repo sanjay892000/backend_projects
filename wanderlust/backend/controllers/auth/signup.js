@@ -10,8 +10,8 @@ const signupFun = async (req, res) => {
         const user = await registerModel.findOne({ email: email });
         if (user) {
             return res.status(400).json({
-                message: "User already exists",
-                success: false
+                success: false,
+                message: "User already exists"
             });
         }
 
@@ -26,14 +26,14 @@ const signupFun = async (req, res) => {
         });
 
         res.status(201).json({
-            message: "User created successfully",
             success: true,
+            message: "User created successfully",
             auth: newUser
         });
     } catch (error) {
         res.status(500).json({
-            message: "Internal server error",
             success: false,
+            message: "Internal server error",
             error: error.message
         });
     }

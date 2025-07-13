@@ -11,22 +11,22 @@ const loginFun = async (req, res) => {
         const user = await registerModel.findOne({ email: email });
         if (!user) {
             return res.status(404).json({
-                message: "invalid email or password",
-                status: false
+                status: false,
+                message: "invalid email or password"
             });
         }
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(404).json({
-                message: "invalid email or password",
-                success: false
+                success: false,
+                message: "invalid email or password"
             });
         }
 
         const token = jwt.sign({ id: user._id }, secretKey);
         res.status(201).json({
-            message: "login successfully ",
             success: true,
+            message: "login successfully ",
             auth: user,
             token: token
         });
@@ -34,8 +34,8 @@ const loginFun = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            message: "Internal server error",
             success: false,
+            message: "Internal server error",
             error: error.message
         });
     }
