@@ -1,5 +1,21 @@
 const { default: mongoose } = require("mongoose");
 
+
+// schema for comments
+const commentSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Register',
+    required: true
+  },
+  text: {
+    type: String,
+    required: true,
+    trim: true
+  },
+}, { _id: false, timestamps:true }); // You can keep `_id: true` if you want comment IDs
+
+//wanderlust schema
 const wanderlust = new mongoose.Schema({
     title: {
         type: String,
@@ -41,6 +57,7 @@ const wanderlust = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Rating"
     }],
+    comment: [commentSchema], // Using the comment schema defined above
     createdby: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Register',
@@ -53,7 +70,21 @@ const wanderlust = new mongoose.Schema({
 });
 
 /* wanderlust.virtuals = {
-    likesCount: {
+    total_like: {
+        get() {
+            return this.like.length;
+        }
+    }
+};
+wanderlust.virtuals = {
+    total_rating: {
+        get() {
+            return this.like.length;
+        }
+    }
+};
+wanderlust.virtuals = {
+    total_comments: {
         get() {
             return this.like.length;
         }
@@ -63,6 +94,14 @@ const wanderlust = new mongoose.Schema({
 wanderlust.virtual('total_like').get(function () {
     return this.like.length;
 });
+
+wanderlust.virtual('total_rating').get(function () {
+  return this.rating?.length || 0; 
+});
+wanderlust.virtual('total_comment').get(function () {
+  return this.comments?.length || 0; // Use optional chaining to handle cases where comments might be undefined
+});
+
 
 const Wanderlust = mongoose.model('Wanderlust', wanderlust);
 module.exports = Wanderlust;

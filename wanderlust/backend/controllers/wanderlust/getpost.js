@@ -12,7 +12,8 @@ const getPost = async (req, res) => {
                     select: "name email"
                 }
             })
-            .populate("createdby","avatar name email")
+            .populate("comment.user", "name email avatar") // Sort by creation date, most recent first
+            .populate("createdby","name email avatar")
             .lean({ virtuals: true }); // include likesCount virtual
 
         if (!allList || allList.length === 0) {
@@ -25,6 +26,7 @@ const getPost = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Posts retrieved successfully",
+            total_post: allList.length,
             data:allList
         });
         
