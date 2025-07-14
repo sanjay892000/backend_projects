@@ -69,6 +69,7 @@ function AuthState({ children }) {
       console.log(data);
       if (data.success) {
         setAuth(data.auth)
+        localStorage.setItem('userid', data.auth._id);
         localStorage.setItem('token', data.token);
         successToast(data.message)
         navigate('/')
@@ -106,6 +107,7 @@ function AuthState({ children }) {
 
   const logoutFun = (logoutFun) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userid');
     setAuth({})
     successToast('Logout Successfully!');
     navigate('/login')

@@ -19,6 +19,8 @@ function ListingState({ children }) {
             theme: "colored",
         });
     }
+
+
     const errorToast = (message) => {
         toast.error(message, {
             position: "top-center",
@@ -31,6 +33,7 @@ function ListingState({ children }) {
             theme: "colored",
         });
     }
+
 
     const addListing = async (listing) => {
         try {
@@ -54,9 +57,11 @@ function ListingState({ children }) {
         }
 
     }
+
+
     const getAllListings = async () => {
         try {
-            const response = await fetch(`${baseUrls}/api/wanderlust/getallpost`, {
+            const response = await fetch(`${baseUrls}/api/wanderlust/getpost`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,6 +69,7 @@ function ListingState({ children }) {
                 }
             });
             const data = await response.json();
+            console.log(data)
             if (data.success) {
                 setAllListing(data.results)
             }
@@ -74,6 +80,8 @@ function ListingState({ children }) {
             errorToast('Internal server error!')
         }
     }
+
+
     const deleteListing = async (id) => {
         try {
             const response = await fetch(`${baseUrls}/api/wanderlust/deletepost/${id}`, {
@@ -95,6 +103,8 @@ function ListingState({ children }) {
             errorToast('Internal server error!')
         }
      }
+
+
     const updateListing = async (id, listing) => { 
         try {
             const response = await fetch(`${baseUrls}/api/wanderlust/updatepost/${id}`, {
@@ -119,9 +129,27 @@ function ListingState({ children }) {
     }
     
 
+    const likePost = async (id) => {
+        try {
+            const response = await fetch(`${baseUrls}/api/wanderlust/likepost/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                setAllListing(allListing.map(item => item._id === id ? { ...item, like: data.like } : item))
+            }
+        } catch (error) {
+            errorToast('Internal server error!')
+        }
+    }
+
 
     return (
-        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing }}>
+        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, likePost }}>
             {children}
         </listingContext.Provider>
     )
