@@ -37,12 +37,12 @@ function ListingState({ children }) {
             const response = await fetch(`${baseUrls}/api/wanderlust/addpost`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'auth-token': localStorage.getItem('token')
                 },
-                body: JSON.stringify(listing)
+                body: listing
             });
             const data = await response.json();
+            console.log(data)
             if (data.success) {
                 successToast(data.message)
             }
@@ -54,16 +54,74 @@ function ListingState({ children }) {
         }
 
     }
-    const getAllListings = async () => { }
-    const deleteListing = async (id) => { }
-    const updateListing = async (id, listing) => { }
-    const getListingByUser = async (id) => { }
-
-
+    const getAllListings = async () => {
+        try {
+            const response = await fetch(`${baseUrls}/api/wanderlust/getallpost`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                setAllListing(data.results)
+            }
+            else {
+               console.log("not success post")
+            }
+        } catch (error) {
+            errorToast('Internal server error!')
+        }
+    }
+    const deleteListing = async (id) => {
+        try {
+            const response = await fetch(`${baseUrls}/api/wanderlust/deletepost/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                successToast(data.message)
+                setAllListing(allListing.filter(listing => listing._id !== id))
+            }
+            else {
+                errorToast(data.message)
+            }
+        } catch (error) {
+            errorToast('Internal server error!')
+        }
+     }
+    const updateListing = async (id, listing) => { 
+        try {
+            const response = await fetch(`${baseUrls}/api/wanderlust/updatepost/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                },
+                body: JSON.stringify(listing)
+            });
+            const data = await response.json();
+            if (data.success) {
+                successToast(data.message)
+                setAllListing(allListing.map(item => item._id === id ? { ...item, ...listing } : item))
+            }
+            else {
+                errorToast(data.message)
+            }
+        } catch (error) {
+            errorToast('Internal server error!')
+        }
+    }
+    
 
 
     return (
-        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, getListingByUser }}>
+        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing }}>
             {children}
         </listingContext.Provider>
     )

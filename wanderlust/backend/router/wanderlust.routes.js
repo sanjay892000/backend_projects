@@ -7,9 +7,9 @@ const updatePost = require('../controllers/wanderlust/updatepost');
 const deletePost = require('../controllers/wanderlust/deletepost');
 const likepost = require('../controllers/wanderlust/likepost');
 const commentPost = require('../controllers/wanderlust/commentpost');
+const upload = require('../middleware/multer');
 
-
-router.post('/addpost', isVerifyAuth, addPost);
+router.post('/addpost', isVerifyAuth, upload.single('image'), addPost);
 router.get('/getpost', isVerifyAuth, getPost);
 router.put('/updatepost/:id', isVerifyAuth, updatePost);
 router.put('/likepost/:postid', isVerifyAuth, likepost);

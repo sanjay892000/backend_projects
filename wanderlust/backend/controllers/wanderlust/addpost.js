@@ -1,12 +1,22 @@
 const Wanderlust = require("../../schema/wanderlust.model");
+const uploadOnCloudinary = require("../../utils/uploadOnCloudinary");
 
 const addPost = async (req, res) => {
     const { title, description, location, country, price } = req.body;
-
+    const localPath = req.file ? req.file.path : null;
     try {
+
+        const image = await uploadOnCloudinary(localPath)
+        if (!image) {
+            return res.status(400).json({
+                success: false,
+                message: errors.array()
+            })
+        }
         const addlist = await Wanderlust.create({
             title,
             description,
+            image, 
             location,
             country,
             price,
@@ -31,9 +41,6 @@ const addPost = async (req, res) => {
             error: error.message
         });
     }
-
-
-
 }
 
 module.exports = addPost;

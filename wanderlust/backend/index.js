@@ -3,15 +3,18 @@ const app = express();
 const cors = require('cors');
 require('dotenv').config();
 const connectToDB = require('./database')
-
 const port = process.env.PORT || 8000;
+const path = require('path');
+const cloudinary = require('./utils/cloudinary');
+
 
 connectToDB();
+
+console.log(cloudinary.config())
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
+app.use(express.static(path.join(__dirname,'public')))
 app.get('/', (req, res) => {
     res.send('Hello World!')
 });

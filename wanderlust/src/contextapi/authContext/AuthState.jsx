@@ -68,6 +68,7 @@ function AuthState({ children }) {
       const data = await response.json();
       console.log(data);
       if (data.success) {
+        setAuth(data.auth)
         localStorage.setItem('token', data.token);
         successToast(data.message)
         navigate('/')
