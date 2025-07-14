@@ -1,21 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import './index.css'
-import App from './App.jsx'
-import About from './components/About'
-import Home from './components/Home'
-import Listing from './components/Listing'
-import ListingDetails from './components/ListingDetails'
+import App from './App.jsx';
+import About from './components/About';
+import Home from './components/Home';
+import Listing from './components/Listing';
+import ListingDetails from './components/ListingDetails';
 
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
-import AddListing from './components/AddListing.jsx'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import AddListing from './components/AddListing.jsx';
 import Contact from './components/Contact';
-import Login from './components/Login.jsx'
-import Signup from './components/Signup.jsx'
-import ThemeState from './contextapi/themeContext/ThemeState.jsx'
-import AuthState from './contextapi/authContext/AuthState.jsx'
-import { ToastContainer } from 'react-toastify'
-import ListingState from './contextapi/listingContext/Listingstate.jsx'
+import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
+import ThemeState from './contextapi/themeContext/ThemeState.jsx';
+import AuthState from './contextapi/authContext/AuthState.jsx';
+import { ToastContainer } from 'react-toastify';
+import ListingState from './contextapi/listingContext/ListingState';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
