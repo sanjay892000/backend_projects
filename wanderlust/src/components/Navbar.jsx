@@ -2,11 +2,18 @@ import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useThemeContext } from '../contextapi/themeContext/themeContext'
 import { useAuthContext } from '../contextapi/authContext/authContext'
+import { useListingContext } from '../contextapi/listingContext/listingContext'
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import Sidebar from './Sidebar'
 function Navbar() {
 
     const navigate = useNavigate()
     const { theme, darkMode, lightMode } = useThemeContext()
-    const { logoutFun } = useAuthContext()
+    const { auth, logoutFun } = useAuthContext()
+
+    const { open, toggleDrawer } = useListingContext()
+
     const toggleTheme = () => {
         if (theme === 'light') {
             darkMode()
@@ -16,7 +23,7 @@ function Navbar() {
     }
 
     return (
-        <div className="bg-gray-900 dark:bg-gray-950 fixed top-0 left-0 z-50 w-full">
+        <div className="bg-gray-800 dark:bg-gray-700 fixed top-0 left-0 z-50 w-full">
             <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
                 <div className="relative flex items-center justify-between">
                     <Link to="/" aria-label="Company" title="Company" className="inline-flex items-center">
@@ -52,17 +59,18 @@ function Navbar() {
                             <i className="fa-solid fa-bell"></i>
                         </li>
                         <li>
-                            {localStorage.getItem('token') ? <Link
-                                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                aria-label="Sign up" title="Sign up" onClick={() => logoutFun(navigate)}>
-                                Logout
-                            </Link> : <Link to="/login"
-                                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                aria-label="Sign up" title="Sign up">
-                                Login
-                            </Link>}
+                            {localStorage.getItem('token') ?
+                                <img className='h-[45px] w-[45px] object-cover border-2 border-amber-50 rounded-full' src={auth.avatar} alt="loading..." onClick={toggleDrawer(true)} />
+                                : <Link to="/login"
+                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                    aria-label="Sign up" title="Sign up">
+                                    Login
+                                </Link>}
                         </li>
                     </ul>
+                    <Drawer open={open} anchor="right" onClose={toggleDrawer(false)}>
+                       <Sidebar toggleDrawer={toggleDrawer} auth={auth} logoutFun={logoutFun} navigate={navigate} />
+                    </Drawer>
                     <div className="lg:hidden">
                         <button aria-label="Open Menu" title="Open Menu"
                             className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline">

@@ -7,6 +7,14 @@ function ListingState({ children }) {
 
     const [allListing, setAllListing] = useState([])
 
+
+    //drawer state
+    const [open, setOpen] = React.useState(false);
+
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+    };
+
     const successToast = (message) => {
         toast.success(message, {
             position: "top-center",
@@ -65,7 +73,6 @@ function ListingState({ children }) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token': localStorage.getItem('token')
                 }
             });
             const data = await response.json();
@@ -74,7 +81,7 @@ function ListingState({ children }) {
                 setAllListing(data.results)
             }
             else {
-               console.log("not success post")
+                console.log("not success post")
             }
         } catch (error) {
             errorToast('Internal server error!')
@@ -102,10 +109,10 @@ function ListingState({ children }) {
         } catch (error) {
             errorToast('Internal server error!')
         }
-     }
+    }
 
 
-    const updateListing = async (id, listing) => { 
+    const updateListing = async (id, listing) => {
         try {
             const response = await fetch(`${baseUrls}/api/wanderlust/updatepost/${id}`, {
                 method: 'PUT',
@@ -127,7 +134,7 @@ function ListingState({ children }) {
             errorToast('Internal server error!')
         }
     }
-    
+
 
     const likePost = async (id) => {
         try {
@@ -150,7 +157,7 @@ function ListingState({ children }) {
 
 
     return (
-        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, likePost }}>
+        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, likePost, open, toggleDrawer }}>
             {children}
         </listingContext.Provider>
     )

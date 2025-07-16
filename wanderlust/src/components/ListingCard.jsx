@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useListingContext } from '../contextapi/listingContext/listingContext';
+import { Link } from 'react-router-dom';
 
-function ListingCard({ title, description, image, price, location, country, createdAt, createdby, like, comment, rating, authId, id }) {
+function ListingCard({ title, description, image, price, location, country, createdAt, createdby, like, comment, rating, authId, id, hidden }) {
 
     const { likePost } = useListingContext();
 
@@ -34,14 +35,14 @@ function ListingCard({ title, description, image, price, location, country, crea
 
     return (
         <div class="overflow-hidden bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 relative transition-shadow duration-300 rounded">
-            <div class="absolute top-0 right-0 bg-white/75 px-3 text-xl py-2 rounded-bl rounded-tr">
+            <div class={`${hidden ? 'hidden' : 'visible'} absolute top-0 right-0 bg-white/75 px-3 text-xl py-2 rounded-bl rounded-tr`}>
                 <i class="mx-2 fa-solid fa-pen-to-square"></i>
                 <i class="mx-2 text-red-600 fa-solid fa-eraser"></i>
             </div>
-            <a href="listing/<%=list._id%>" aria-label="Article">
+            <Link to={`/listdetails/${id}`} aria-label="Article">
                 <img src={image ? image : "https://images.pexels.com/photos/164558/pexels-photo-164558.jpeg"}
                     class="object-cover w-full h-64 rounded" alt="loading..." />
-            </a>
+            </Link>
             <div class="py-5 px-5">
                 <p class="mb-2 text-xs font-semibold text-gray-500 uppercase">
                     {date.toLocaleDateString('en-US', {
@@ -80,7 +81,7 @@ function ListingCard({ title, description, image, price, location, country, crea
                 </div>
                 <div class="flex space-x-4">
                     <span aria-label="Likes"
-                        class="flex items-start text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700 group">
+                        class="flex items-start text-gray-800 transition-colors cursor-pointer duration-200 hover:text-deep-purple-accent-700 group">
                         <div class="mr-2" onClick={handleLike}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round"

@@ -5,7 +5,7 @@ import { useAuthContext } from '../contextapi/authContext/authContext'
 
 function Listing() {
 
-  const { getAllListings, allListing } = useListingContext()
+  const {allListing, getAllListings} = useListingContext()
 
   const authId = localStorage.getItem('userid') || '';
   
@@ -32,6 +32,7 @@ function Listing() {
             rating={element.rating}
             authId={authId}
             id={element._id}
+            hidden={true}
             />
         }) : (
           <div className="text-center col-span-3">
