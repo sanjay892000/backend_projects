@@ -139,8 +139,9 @@ function ListingState({ children }) {
                 }
             });
             const data = await response.json();
+            console.log(data)
             if (data.success) {
-                setAllListing(allListing.map(item => item._id === id ? { ...item, like: data.like } : item))
+                setAllListing(allListing.map(item => item._id === id ? data.post : item))
             }
         } catch (error) {
             errorToast('Internal server error!')

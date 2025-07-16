@@ -5,15 +5,7 @@ function ListingCard({ title, description, image, price, location, country, crea
 
     const { likePost } = useListingContext();
 
-    const [isLike, setIsLike] = useState(false);
-
-    useEffect(() => {
-        like && like.forEach((user) => {
-            if (user._id === authId) {
-                setIsLike(true);
-            }
-        });
-    }, [isLike])
+    const [isLike, setIsLike] = useState(like?.some(user => user._id === authId));
 
     const handleLike = () => {
         if (authId) {

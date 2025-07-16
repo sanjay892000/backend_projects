@@ -8,8 +8,7 @@ function Listing() {
   const { getAllListings, allListing } = useListingContext()
 
   const authId = localStorage.getItem('userid') || '';
-  console.log(authId)
-
+  
   useEffect(() => {
     getAllListings()
   }, [])
