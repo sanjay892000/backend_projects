@@ -3,15 +3,20 @@ import ListingCard from './ListingCard'
 import { useListingContext } from '../contextapi/listingContext/listingContext'
 import { useAuthContext } from '../contextapi/authContext/authContext'
 
-function Listing() {
+function Listing({hidden, userid=""}) {
 
-  const {allListing, getAllListings} = useListingContext()
+  const {allListing, getAllListings, yourPost} = useListingContext()
 
   const authId = localStorage.getItem('userid') || '';
   
   useEffect(() => {
-    getAllListings()
-  }, [])
+    if(hidden){
+      getAllListings()
+    }
+    else {
+      yourPost()
+    }
+  }, [hidden, userid])
 
 
   return (
@@ -32,11 +37,11 @@ function Listing() {
             rating={element.rating}
             authId={authId}
             id={element._id}
-            hidden={true}
+            hidden={hidden}
             />
         }) : (
           <div className="text-center col-span-3">
-            <p className="text-lg font-bold">No listings found</p>
+            <p className="text-lg font-bold">{ hidden ? 'No anyone list added' : 'Your List is Empty'} </p>
           </div>
         )}
       </div>

@@ -1,46 +1,14 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css'
-import App from './App.jsx';
-import About from './components/About';
-import Home from './components/Home';
-import Listing from './components/Listing';
-import ListingDetails from './components/ListingDetails';
-
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import AddListing from './components/AddListing.jsx';
-import Contact from './components/Contact';
-import Login from './components/Login.jsx';
-import Signup from './components/Signup.jsx';
 import ThemeState from './contextapi/themeContext/ThemeState.jsx';
 import AuthState from './contextapi/authContext/AuthState.jsx';
 import { ToastContainer } from 'react-toastify';
 import ListingState from './contextapi/listingContext/ListingState';
-import YourPost from './components/YourPost.jsx';
-import Profile from './components/Profile.jsx';
-import ErrorPage from './components/ErrorPage.jsx';
+import Elements from './Elements.jsx';
 
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
 
-    <Route path='/' element={<App />} >
-      <Route path='' element={<Home />} />
-      <Route path='listing' element={<Listing />} />
-      <Route path='yourpost' element={<YourPost />} />
-      <Route path='addlisting' element={<AddListing />} />
-      <Route path='profile' element={<Profile />} />
-      <Route path='listdetails/:listId' element={<ListingDetails />} />
-      <Route path='about' element={<About />} />
-      <Route path='contact' element={<Contact />} />
-      <Route path='login' element={<Login />} />
-      <Route path='signup' element={<Signup />} />
-      <Route path='*' element={<ErrorPage />} />
-
-    </Route>
-
-  )
-)
 
 
 createRoot(document.getElementById('root')).render(
@@ -48,7 +16,7 @@ createRoot(document.getElementById('root')).render(
     <ThemeState>
       <AuthState>
         <ListingState>
-          <RouterProvider router={router} />
+          <Elements />
           <ToastContainer
             position="top-right"
             autoClose={5000}

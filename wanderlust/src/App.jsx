@@ -1,21 +1,29 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import { useThemeContext } from './contextapi/themeContext/themeContext'
 import { useEffect } from 'react'
-import { useAuthContext } from './contextapi/authContext/authContext'
-
+import { useAuthContext } from './contextapi/authContext/authContext.js'
 function App() {
 
   const { theme } = useThemeContext()
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const { isLogin } = useAuthContext();
 
- const { pathname } = useLocation()
-  useEffect(()=>{
-    window.scrollTo(0, 0,{
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/login')
+    }
+  }, [isLogin])
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0, {
       behavior: 'smooth'
     })
-  },[pathname])
+  }, [pathname])
 
   useEffect(() => {
     let html = document.querySelector('html');
@@ -25,10 +33,11 @@ function App() {
 
   const { getAuthFun } = useAuthContext()
   useEffect(() => {
-   if(localStorage.getItem('token')) {
+    if (isLogin) {
       getAuthFun()
     }
   }, [])
+
 
   return (
     <main className='pt-[86px] bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100'>

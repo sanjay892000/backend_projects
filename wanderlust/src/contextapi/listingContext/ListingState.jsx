@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import listingContext from './listingContext';
 import { toast } from 'react-toastify';
 import baseUrls from './../../baseUrls';
+import { useAuthContext } from '../authContext/authContext';
 
 function ListingState({ children }) {
 
     const [allListing, setAllListing] = useState([])
-
+    const { isLogin } = useAuthContext();
 
     //drawer state
     const [open, setOpen] = React.useState(false);
@@ -79,15 +80,38 @@ function ListingState({ children }) {
             console.log(data)
             if (data.success) {
                 setAllListing(data.results)
+                return data.results;
             }
             else {
                 console.log("not success post")
             }
         } catch (error) {
-            errorToast('Internal server error!')
+            console.log(error)
         }
     }
 
+    const yourPost = async () => {
+        try {
+            const response = await fetch(`${baseUrls}/api/wanderlust/yourpost`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                }
+            });
+            const data = await response.json();
+            console.log(data)
+            if (data.success) {
+                setAllListing(data.results)
+            }
+            else {
+                console.log("not success post")
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const deleteListing = async (id) => {
         try {
@@ -137,6 +161,10 @@ function ListingState({ children }) {
 
 
     const likePost = async (id) => {
+        if (!isLogin) {
+            errorToast('Please login to like a post!')
+            return;
+        }
         try {
             const response = await fetch(`${baseUrls}/api/wanderlust/likepost/${id}`, {
                 method: 'PUT',
@@ -157,7 +185,7 @@ function ListingState({ children }) {
 
 
     return (
-        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, likePost, open, toggleDrawer }}>
+        <listingContext.Provider value={{ allListing, setAllListing, addListing, getAllListings, updateListing, deleteListing, likePost, open, toggleDrawer, yourPost }}>
             {children}
         </listingContext.Provider>
     )

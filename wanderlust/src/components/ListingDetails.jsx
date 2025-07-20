@@ -3,35 +3,49 @@ import { useListingContext } from '../contextapi/listingContext/listingContext'
 import { useParams } from 'react-router-dom'
 
 function ListingDetails() {
+  
 
-  const { allListing } = useListingContext()
   const { listId } = useParams()
+  const { allListing } = useListingContext()
 
   const [list, setList] = useState({})
 
   useEffect(() => {
-   
-    /* allListing.forEach((item) => {
-      if (item._id === listId) { // Replace "some-id" with
-       
+    allListing.forEach((item) => {
+      if (item._id === listId) {
+        console.log(item)
+        setList(item)
       }
-    }); */
-    console.log(listId)
+    });
   }, [listId])
 
 
 
   return (
-    <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+    <div class="px-4 py-6 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8">
       <div class="grid gap-5 row-gap-10 lg:grid-cols-2">
         <div class="flex flex-col justify-center">
           <div class="max-w-xl mb-6">
+            <span
+              class="max-w-lg mb-6 font-sans text-sm tracking-tight text-gray-700 dark:text-gray-300">
+              {new Date(list?.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                time: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </span>
             <h2
-              class="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error inventore alias quis!
+              class="max-w-lg capitalize mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-none">
+              {list?.title}
             </h2>
-            <p class="text-base text-gray-700 md:text-lg">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, sequi excepturi est reprehenderit dolores debitis, officiis nesciunt cum inventore aspernatur delectus quis, cumque ea consectetur maiores quisquam quas beatae quod labore. Error nam molestias placeat dolores quasi at obcaecati maxime atque repellat ea odio, tempora vitae libero temporibus blanditiis laborum incidunt ut eos. Tempora itaque rem sequi, numquam sapiente iste reprehenderit quod repellat eum, quae amet nulla ab velit id, illum at in deleniti! Dolor quidem veritatis eum. Ipsum, quia.
+            <p class="text-base text-gray-700 dark:text-gray-300 md:text-lg">
+              {list?.description}
+            </p>
+            <p class="text-base text-gray-700 mt-3 dark:text-gray-300 md:text-lg">
+              Price:<span class="font-bold mx-2 text-gray-900 dark:text-gray-100">{list?.price}₹</span>
             </p>
           </div>
           <p class="mb-4 text-sm font-bold tracking-widest uppercase">Features</p>
@@ -95,9 +109,38 @@ function ListingDetails() {
               </li>
             </ul>
           </div>
+          <span
+            class="max-w-lg mt-6 font-sans text-sm tracking-tight text-gray-700 dark:text-gray-300">
+            {list?.location}, {list?.country}
+          </span>
+          <div className='flex items-center gap-10 mt-6'>
+            <div>
+              <img className='h-[80px] w-[80px] object-cover' src={list?.createdby?.avatar} alt="loading..." />
+            </div>
+            <div>
+              <p class="text-base text-gray-700 dark:text-gray-300 md:text-lg"> Owner:
+                <span class="font-bold mx-2 text-gray-900 dark:text-gray-100">
+                  {list?.createdby?.name}
+                </span>
+              </p>
+              <p class="text-base text-gray-700 dark:text-gray-300 md:text-lg"> Email:
+                <a href={`mailto:${list?.createdby?.email}`} class="font-bold mx-2 no-underline text-gray-900 dark:text-gray-100">
+                  {list?.createdby?.email}
+                </a>
+              </p>
+              <p class="text-base text-gray-700 dark:text-gray-300 md:text-lg"> Phone:
+               {list?.createdby?.phone ? <a href={`tel:+91-${list?.createdby?.phone}`} class="font-bold mx-2 no-underline text-gray-900 dark:text-gray-100">
+                  {list?.createdby?.phone}
+                </a> :  <span class="font-bold mx-2 no-underline text-gray-900 dark:text-gray-100">
+                  {'Not available'}
+                </span>}
+              </p>
+            </div>
+          </div>
         </div>
         <div>
-          <img class="object-cover w-full h-56 rounded shadow-lg sm:h-96" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" alt="" />
+          <img class="object-cover w-full h-56 rounded shadow-lg sm:h-96" src={list?.image} alt="loading..." />
+          <button className='mt-15 bg-orange-700 py-4 px-8 rounded-sm text-white' >Book Now</button>
         </div>
       </div>
     </div>

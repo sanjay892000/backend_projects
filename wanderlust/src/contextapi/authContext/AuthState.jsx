@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 function AuthState({ children }) {
 
   const [auth, setAuth] = useState({})
+  const [isLogin, setIsLogin] = useState(localStorage.getItem('token') ? true : false);
 
   const successToast = (message) => {
     toast.success(message, {
@@ -71,6 +72,7 @@ function AuthState({ children }) {
         setAuth(data.auth)
         localStorage.setItem('userid', data.auth._id);
         localStorage.setItem('token', data.token);
+        setIsLogin(true);
         successToast(data.message)
         navigate('/')
       }
@@ -108,13 +110,14 @@ function AuthState({ children }) {
   const logoutFun = (logoutFun) => {
     localStorage.removeItem('token');
     localStorage.removeItem('userid');
+    setIsLogin(false);
     setAuth({})
     successToast('Logout Successfully!');
     navigate('/login')
   }
 
   return (
-    <authContext.Provider value={{ auth, signupFun, loginFun, logoutFun, updateAuthFun, getAuthFun }}>
+    <authContext.Provider value={{ auth, signupFun, loginFun, logoutFun, updateAuthFun, getAuthFun, isLogin, setIsLogin }}>
       {children}
     </authContext.Provider>
   )
