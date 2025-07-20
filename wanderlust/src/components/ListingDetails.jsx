@@ -1,6 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useListingContext } from '../contextapi/listingContext/listingContext'
+import { useParams } from 'react-router-dom'
 
 function ListingDetails() {
+
+  const { allListing } = useListingContext()
+  const { listId } = useParams()
+
+  const [list, setList] = useState({})
+
+  useEffect(() => {
+   
+    /* allListing.forEach((item) => {
+      if (item._id === listId) { // Replace "some-id" with
+       
+      }
+    }); */
+    console.log(listId)
+  }, [listId])
+
+
+
   return (
     <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div class="grid gap-5 row-gap-10 lg:grid-cols-2">
@@ -11,7 +31,7 @@ function ListingDetails() {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Error inventore alias quis!
             </h2>
             <p class="text-base text-gray-700 md:text-lg">
-             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, sequi excepturi est reprehenderit dolores debitis, officiis nesciunt cum inventore aspernatur delectus quis, cumque ea consectetur maiores quisquam quas beatae quod labore. Error nam molestias placeat dolores quasi at obcaecati maxime atque repellat ea odio, tempora vitae libero temporibus blanditiis laborum incidunt ut eos. Tempora itaque rem sequi, numquam sapiente iste reprehenderit quod repellat eum, quae amet nulla ab velit id, illum at in deleniti! Dolor quidem veritatis eum. Ipsum, quia.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, sequi excepturi est reprehenderit dolores debitis, officiis nesciunt cum inventore aspernatur delectus quis, cumque ea consectetur maiores quisquam quas beatae quod labore. Error nam molestias placeat dolores quasi at obcaecati maxime atque repellat ea odio, tempora vitae libero temporibus blanditiis laborum incidunt ut eos. Tempora itaque rem sequi, numquam sapiente iste reprehenderit quod repellat eum, quae amet nulla ab velit id, illum at in deleniti! Dolor quidem veritatis eum. Ipsum, quia.
             </p>
           </div>
           <p class="mb-4 text-sm font-bold tracking-widest uppercase">Features</p>

@@ -3,7 +3,7 @@ const wanderlustModel = require("../../schema/wanderlust.model");
 const getPost = async (req, res) => {
 
     try {
-        const allList = await wanderlustModel.find({})
+        const allList = await wanderlustModel.find({}).sort({ createdAt: -1 })
             .populate("like", "name email")
             .populate({
                 path: "rating",

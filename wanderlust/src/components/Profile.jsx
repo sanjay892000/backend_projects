@@ -1,11 +1,11 @@
 import React from 'react'
 
-function YourPost() {
+function Profile() {
   return (
     <div>
-      your list
+      your profile
     </div>
   )
 }
 
-export default YourPost
+export default Profile

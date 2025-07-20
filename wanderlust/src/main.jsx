@@ -16,6 +16,9 @@ import ThemeState from './contextapi/themeContext/ThemeState.jsx';
 import AuthState from './contextapi/authContext/AuthState.jsx';
 import { ToastContainer } from 'react-toastify';
 import ListingState from './contextapi/listingContext/ListingState';
+import YourPost from './components/YourPost.jsx';
+import Profile from './components/Profile.jsx';
+import ErrorPage from './components/ErrorPage.jsx';
 
 
 const router = createBrowserRouter(
@@ -24,12 +27,15 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />} >
       <Route path='' element={<Home />} />
       <Route path='listing' element={<Listing />} />
+      <Route path='yourpost' element={<YourPost />} />
       <Route path='addlisting' element={<AddListing />} />
+      <Route path='profile' element={<Profile />} />
       <Route path='listdetails/:listId' element={<ListingDetails />} />
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
+      <Route path='*' element={<ErrorPage />} />
 
     </Route>
 
