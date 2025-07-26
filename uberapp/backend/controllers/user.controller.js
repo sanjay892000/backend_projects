@@ -8,7 +8,7 @@ const register = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { fullname, email, age, password } = req.body;
+    const { firstname, lastname, email, age, password } = req.body;
 
     try {
         let user = await userModel.findOne({ email })
@@ -18,7 +18,7 @@ const register = async (req, res) => {
         const hashedPassword = await userModel.hashPassword(password);
 
         user = await registerService({
-            firstname: fullname.firstname, lastname: fullname.lastname, email, age, password: hashedPassword
+            firstname, lastname, email, age, password: hashedPassword
         })
 
         const token = user.generateAuthToken();
