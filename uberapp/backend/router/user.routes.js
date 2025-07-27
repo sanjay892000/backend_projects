@@ -23,6 +23,6 @@ router.get('/profile', isVerifyAuth, getProfile);
 
 router.put('/profile/update', isVerifyAuth, updateProfile);
 
-router.delete('/delete', deleteProfile)
+router.delete('/profile/delete', isVerifyAuth, deleteProfile)
 
 module.exports = router;

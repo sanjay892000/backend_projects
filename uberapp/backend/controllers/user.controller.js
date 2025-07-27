@@ -143,7 +143,25 @@ const updateProfile = async (req, res) => {
     }
 };
 
-const deleteProfile = async (req, res) => { };
+const deleteProfile = async (req, res) => {
+
+    try {
+        const user = await userModel.findByIdAndDelete(req.user);
+        res.status(200).json({
+            success: true,
+            message: "your account deleted successfully!",
+            user
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+            error: error.message
+        });
+    };
+
+};
 
 module.exports = { register, login, getProfile, updateProfile, deleteProfile };
 
