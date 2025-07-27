@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const { body } = require('express-validator')
-const { register, login, getProfile, updateProfile, deleteProfile } = require('../controllers/user.controller');
+const { register, login, getProfile, updateProfile, deleteProfile, logout } = require('../controllers/user.controller');
 const isVerifyAuth = require('../middleware/auth.middleware');
 
 
@@ -18,6 +18,8 @@ router.post('/login', [
     body('email').not().isEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email address'),
     body('password').not().isEmpty().withMessage('Password is required')
 ], login);
+
+router.get('/profile/logout', isVerifyAuth, logout);
 
 router.get('/profile', isVerifyAuth, getProfile);
 

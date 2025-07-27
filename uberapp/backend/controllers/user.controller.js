@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const userModel = require('../models/user.model');
-
+const blacklistTokenModel = require('../models/blacklistToken.model')
 
 const register = async (req, res) => {
     const errors = validationResult(req);
@@ -75,6 +75,25 @@ const login = async (req, res) => {
         })
     }
 };
+
+const logout = async (req, res) => {
+    try {
+        res.clearCookie('token');
+        const token = req.cookies.token || req.header('auth-token');
+        await blacklistTokenModel.create({ token })
+        res.status(200).json({
+            success: true,
+            message: 'Logged out successfully!',
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+            error: error.message
+        })
+    }
+}
 
 
 const getProfile = async (req, res) => {
@@ -164,5 +183,6 @@ const deleteProfile = async (req, res) => {
 
 };
 
-module.exports = { register, login, getProfile, updateProfile, deleteProfile };
+
+module.exports = { register, login, getProfile, updateProfile, deleteProfile, logout };
 

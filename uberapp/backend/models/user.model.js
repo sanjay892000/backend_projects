@@ -97,7 +97,7 @@ const userSchema = new mongoose.Schema({
 
 //Jab tumhe function specific user/document ke upar call karna ho → use methods
 userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id }, secretKey);
+    const token = jwt.sign({ _id: this._id }, secretKey, { expiresIn: '24h' });
     return token;
 }
 
