@@ -23,13 +23,13 @@ const register = async (req, res) => {
             },
             email,
             age,
-            password
+            password: hashedPassword
         })
 
         /*   const token = user.generateAuthToken(); */
         res.status(201).json({
             success: true,
-            message: 'User created successfully!',
+            message: 'Account created successfully!',
             user
         });
 
@@ -76,7 +76,7 @@ const login = async (req, res) => {
 };
 
 
-const getUser = async (req, res) => {
+const getProfile = async (req, res) => {
 
     try {
         const user = await userModel.findById(req.user)
@@ -97,8 +97,53 @@ const getUser = async (req, res) => {
 };
 
 
-const updateUser = async (req, res) => {  };
-const deleteUser = async (req, res) => { };
+const updateProfile = async (req, res) => {
+    const { firstname, lastname, email, age, bio, phone, oldpassword, newpassword, address, city, state, country, zip, social } = req.body;
 
-module.exports = { register, login, getUser, updateUser, deleteUser };
+    try {
+        const user = await userModel.findById(req.user);
+        if (firstname || lastname) {
+            user.fullname = {};
+            if (firstname) user.fullname.firstname = firstname;
+            if (lastname) user.fullname.lastname = lastname;
+        };
+        if (email) user.email = email;
+        if (age) user.age = age;
+        if (bio) user.bio = bio;
+        if (phone) user.phone = phone;
+        if (oldpassword && newpassword) {
+            const isValidPassword = await user.comparePassword(oldpassword);
+            if (!isValidPassword) {
+                return res.status(401).json({ success: false, message: 'Invalid email or password' });
+            }
+            const hashedPassword = await userModel.hashPassword(newpassword);
+            user.password = hashedPassword;
+        }
+        if (address) user.address = address;
+        if (city) user.city = city;
+        if (state) user.state = state;
+        if (country) user.country = country;
+        if (zip) user.zip = zip;
+        if (social?.length > 0) user.social = social;
+
+        const updateduser = await user.save()
+
+        res.status(200).json({
+            success: true,
+            message: "your profile updated successfully!",
+            user: updateduser
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+            error: error.message
+        })
+    }
+};
+
+const deleteProfile = async (req, res) => { };
+
+module.exports = { register, login, getProfile, updateProfile, deleteProfile };
 
