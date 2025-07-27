@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/uber/api/v3.2/auth', require('./router/user.routes'))
+app.use('/uber/api/v3.2/captain', require('./router/captain.routes'))
 
 module.exports = app;
 connectToDB();

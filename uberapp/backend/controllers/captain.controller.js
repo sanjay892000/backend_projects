@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const userModel = require('../models/user.model');
+const captainModel = require('../models/captain.model');
 const blacklistTokenModel = require('../models/blacklistToken.model')
 
 const register = async (req, res) => {
@@ -7,30 +7,38 @@ const register = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { firstname, lastname, email, gender, password } = req.body;
+    const { firstname, lastname, email, age, gender, vehicle, password } = req.body;
+    const { color, plate, capacity, vehicleType } = vehicle || {};
 
     try {
-        let user = await userModel.findOne({ email })
-        if (user) {
+        let captain = await captainModel.findOne({ email })
+        if (captain) {
             throw new Error('Email already exists!')
         }
-        const hashedPassword = await userModel.hashPassword(password);
+        const hashedPassword = await captainModel.hashPassword(password);
 
-        user = await userModel.create({
+        captain = await captainModel.create({
             fullname: {
                 firstname,
                 lastname
             },
             email,
             gender,
+            age,
+            vehicle: {
+                color,
+                plate,
+                capacity,
+                vehicleType
+            },
             password: hashedPassword
         })
 
-        /*   const token = user.generateAuthToken(); */
+        /*   const token = captain.generateAuthToken(); */
         res.status(201).json({
             success: true,
             message: 'Account created successfully!',
-            user
+            captain
         });
 
     } catch (error) {
@@ -50,21 +58,21 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        let user = await userModel.findOne({ email }).select('+password');;
-        if (!user) {
+        let captain = await captainModel.findOne({ email }).select('+password');;
+        if (!captain) {
             return res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
 
-        const isValidPassword = await user.comparePassword(password);
+        const isValidPassword = await captain.comparePassword(password);
         if (!isValidPassword) {
             return res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
-        const token = user.generateAuthToken();
+        const token = captain.generateAuthToken();
         res.cookie('token', token)
         res.status(200).json({
             success: true,
             message: 'Logged in successfully!',
-            user, token
+            captain, token
         });
     } catch (error) {
         console.log(error)
@@ -97,7 +105,7 @@ const logout = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-        const user = await userModel.findById(req.user)
+        const user = await captainModel.findById(req.user)
         res.status(200).json({
             success: true,
             message: "your profile founded",
@@ -115,37 +123,47 @@ const getProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-    const { firstname, lastname, email, gender, phone, oldpassword, newpassword, address, city, state, country, zip } = req.body;
+    const { firstname, lastname, email, age, gender, phone, vehicle, oldpassword, newpassword, address, city, state, country, zip, social } = req.body;
+    const { color, plate, capacity, vehicleType } = vehicle || {};
 
     try {
-        const user = await userModel.findById(req.user);
+        const captain = await captainModel.findById(req.user);
         if (firstname || lastname) {
-            if (firstname) user.fullname.firstname = firstname;
-            if (lastname) user.fullname.lastname = lastname;
+            captain.fullname = {};
+            if (firstname) captain.fullname.firstname = firstname;
+            if (lastname) captain.fullname.lastname = lastname;
         };
-        if (email) user.email = email;
-        if (gender) user.gender = gender;
-        if (phone) user.phone = phone;
+        if (email) captain.email = email;
+        if (age) captain.age = age
+        if (gender) captain.gender = gender;
+        if(vehicle){
+            if(color) captain.vehicle.color = color;
+            if(plate) captain.vehicle.plate = plate;
+            if(capacity) captain.vehicle.capacity = capacity;
+            if(vehicleType) captain.vehicle.vehicleType = vehicleType;
+        }
+        if (phone) captain.phone = phone;
         if (oldpassword && newpassword) {
-            const isValidPassword = await user.comparePassword(oldpassword);
+            const isValidPassword = await captain.comparePassword(oldpassword);
             if (!isValidPassword) {
                 return res.status(401).json({ success: false, message: 'Invalid email or password' });
             }
-            const hashedPassword = await userModel.hashPassword(newpassword);
-            user.password = hashedPassword;
+            const hashedPassword = await captainModel.hashPassword(newpassword);
+            captain.password = hashedPassword;
         }
-        if (address) user.address = address;
-        if (city) user.city = city;
-        if (state) user.state = state;
-        if (country) user.country = country;
-        if (zip) user.zip = zip;
+        if (address) captain.address = address;
+        if (city) captain.city = city;
+        if (state) captain.state = state;
+        if (country) captain.country = country;
+        if (zip) captain.zip = zip;
+        if (social) captain.social = social;
 
-        const updateduser = await user.save()
+        const updatedcaptain = await captain.save()
 
         res.status(200).json({
             success: true,
             message: "your profile updated successfully!",
-            user: updateduser
+            user: updatedcaptain
         })
     } catch (error) {
         console.log(error)
@@ -160,7 +178,7 @@ const updateProfile = async (req, res) => {
 const deleteProfile = async (req, res) => {
 
     try {
-        const user = await userModel.findByIdAndDelete(req.user);
+        const user = await captainModel.findByIdAndDelete(req.user);
         res.status(200).json({
             success: true,
             message: "your account deleted successfully!",

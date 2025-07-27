@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const { body } = require('express-validator')
-const { register, login, getProfile, updateProfile, deleteProfile, logout } = require('../controllers/user.controller');
+const { register, login, getProfile, updateProfile, deleteProfile, logout } = require('../controllers/captain.controller');
 const isVerifyAuth = require('../middleware/auth.middleware');
 
 
@@ -9,8 +9,13 @@ const isVerifyAuth = require('../middleware/auth.middleware');
 router.post('/register', [
     body('firstname').isLength({ min: 3 }).withMessage('first-name must be at least 3 characters long'),
     body('email').isEmail().withMessage('Invalid email address'),
+    body('age').notEmpty().withMessage('Age is required').isInt({ min: 18, max: 50 }).withMessage('Age must be between 18 and 50'),
     body('gender').notEmpty().withMessage('Gender is required'),
-    body('password').not().isEmpty().withMessage('Password is required')
+    body('vehicle.color').notEmpty().withMessage('vehicle color is required'),
+    body('vehicle.plate').notEmpty().withMessage('vehicle plate is required'),
+    body('vehicle.capacity').notEmpty().withMessage('vehicle type is required').isInt({min:1}).withMessage("Capacity must be atleast 1"),
+    body('vehicle.vehicleType').notEmpty().withMessage('vehicle type is required'),
+    body('password').not().isEmpty().withMessage('Password is required'),
 ], register);
 
 

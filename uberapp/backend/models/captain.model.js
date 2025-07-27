@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const secretKey = process.env.JWT_SECRET;
 
 
-const userSchema = new mongoose.Schema({
+const captainSchema = new mongoose.Schema({
     fullname: {
         firstname: {
             type: String,
@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema({
             type: String,
             trim: true
         }
+    },
+    age: {
+        type: Number,
+        required: true,
+        min: [18, 'Age must be at least 18'],
+        max: [50, 'Age must be at most 50']
     },
     email: {
         type: String,
@@ -33,6 +39,28 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['male', 'female']
     },
+    vehicle: {
+        color: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        plate: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        capacity: {
+            type: Number,
+            required: true,
+            min: [1, 'Capacity must be at least 1']
+        },
+        vehicleType: {
+            type: String,
+            required: true,
+            enum: ['motorcycle', 'auto', 'car']
+        }
+    },
     password: {
         type: String,
         required: true,
@@ -41,6 +69,16 @@ const userSchema = new mongoose.Schema({
     socketId: {
         type: String,
         default: null
+    },
+    location: {
+        lat: {
+            type: Number,
+            default: null
+        },
+        lng: {
+            type: Number,
+            default: null
+        }
     },
     address: {
         type: String,
@@ -66,24 +104,43 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         default: null
-    }
+    },
+    social: [{
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+            enum: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'YouTube']
+        },
+        url: {
+            type: String,
+            required: true,
+            trim: true,
+            validate: {
+                validator: function (v) {
+                    return /^https?:\/\/.+/.test(v); // simple URL validation
+                },
+                message: props => `${props.value} is not a valid URL!`
+            }
+        }
+    }]
 }, { timestamps: true });
 
 
 //Jab tumhe function specific user/document ke upar call karna ho → use methods
-userSchema.methods.generateAuthToken = function () {
+captainSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id }, secretKey, { expiresIn: '24h' });
     return token;
 }
 
-userSchema.methods.comparePassword = async function (password) {
+captainSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
 //Jab tumhe function model pe directly call karna ho → use statics
-userSchema.statics.hashPassword = async function (password) {
+captainSchema.statics.hashPassword = async function (password) {
     return await bcrypt.hash(password, 10);
 }
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const Captain = mongoose.model('Captain', captainSchema);
+module.exports = Captain;
