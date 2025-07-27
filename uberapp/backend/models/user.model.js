@@ -42,7 +42,56 @@ const userSchema = new mongoose.Schema({
     socketId: {
         type: String,
         default: null
-    }
+    },
+    bio: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    address: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    city: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    state: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    country: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    zip: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    social: [{
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+            enum: ['LinkedIn', 'GitHub', 'Twitter', 'Facebook', 'Instagram', 'YouTube', 'Portfolio']
+        },
+        url: {
+            type: String,
+            required: true,
+            trim: true,
+            validate: {
+                validator: function (v) {
+                    return /^https?:\/\/.+/.test(v); // simple URL validation
+                },
+                message: props => `${props.value} is not a valid URL!`
+            }
+        }
+    }]
 }, { timestamps: true });
 
 
@@ -52,7 +101,7 @@ userSchema.methods.generateAuthToken = function () {
     return token;
 }
 
-userSchema.methods.comparePassword =async function (password) {
+userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
