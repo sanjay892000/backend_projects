@@ -5,8 +5,8 @@ const userModel = require('../models/user.model')
 const secretKey = process.env.JWT_SECRET
 
 const isVerifyAuth = async (req, res, next) => {
-    const token = req.header('auth-token');
-    /*  const token = req.cookies.token || req.headers.authorization.split(" ")[1]; */
+/*     const token = req.header('auth-token'); */
+     const token = req.cookies.token || req.header('auth-token');
     if (!token) {
         return res.status(401).json({ message: 'You are unauthorized' });
     }
