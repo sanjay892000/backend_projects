@@ -9,7 +9,7 @@ const isVerifyAuth = require('../middleware/auth.middleware');
 router.post('/register', [
     body('firstname').isLength({ min: 3 }).withMessage('first-name must be at least 3 characters long'),
     body('email').isEmail().withMessage('Invalid email address'),
-    body('gender').notEmpty().withMessage('Gender is required'),
+    body('phone').notEmpty().withMessage('Phone is required'),
     body('password').not().isEmpty().withMessage('Password is required')
 ], register);
 

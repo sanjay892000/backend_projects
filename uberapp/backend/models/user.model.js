@@ -26,17 +26,18 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        trim: true
-    },
-    gender: {
-        type: String,
         required: true,
-        enum: ['male', 'female']
+        trim: true
     },
     password: {
         type: String,
         required: true,
         select: false // Do not return password in queries
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female', ""],
+        default: ""
     },
     socketId: {
         type: String,

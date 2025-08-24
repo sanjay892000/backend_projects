@@ -5,7 +5,6 @@ const { register, login, getProfile, updateProfile, deleteProfile, logout } = re
 const isVerifyAuth = require('../middleware/auth.middleware');
 
 
-
 router.post('/register', [
     body('firstname').isLength({ min: 3 }).withMessage('first-name must be at least 3 characters long'),
     body('email').isEmail().withMessage('Invalid email address'),

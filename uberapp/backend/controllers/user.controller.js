@@ -7,7 +7,7 @@ const register = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { firstname, lastname, email, gender, password } = req.body;
+    const { firstname, lastname, email, phone, password } = req.body;
 
     try {
         let user = await userModel.findOne({ email })
@@ -22,7 +22,7 @@ const register = async (req, res) => {
                 lastname
             },
             email,
-            gender,
+            phone,
             password: hashedPassword
         })
 
