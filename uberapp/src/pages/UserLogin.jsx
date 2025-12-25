@@ -6,9 +6,9 @@ import { useAuthContext } from '../context/AuthContext'
 
 const UserLogin = () => {
 
-  const [login, setLogin] = useState({ email: "", password: "" })
   const navigate = useNavigate()
   const { loginAuthFun } = useAuthContext()
+  const [login, setLogin] = useState({ email: "", password: "" })
 
   const changeHandler = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value })
