@@ -1,9 +1,9 @@
-const express = require('express');
-const app = express();
 const cors = require('cors');
+const express = require('express');
 require('dotenv').config();
 const connectToDB = require('./database')
 const cookieParser = require('cookie-parser');
+const { app, httpServer } = require('./socket/socket.io');
 
 const port = process.env.PORT || 8000;
 
@@ -22,6 +22,6 @@ app.use('/api/message', require('./router/message.routes'));
     res.send('Hello World!')
 }); */
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
 })
