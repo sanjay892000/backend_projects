@@ -26,14 +26,6 @@ function Profile() {
               Passionate software developer with 5 years of experience in web technologies.
               I love creating user-friendly applications and solving complex problems.
             </p>
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Skills</h2>
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="bg-orange-100 text-gray-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-              <span className="bg-orange-100 text-gray-800 px-3 py-1 rounded-full text-sm">React</span>
-              <span className="bg-orange-100 text-gray-800 px-3 py-1 rounded-full text-sm">Node.js</span>
-              <span className="bg-orange-100 text-gray-800 px-3 py-1 rounded-full text-sm">Python</span>
-              <span className="bg-orange-100 text-gray-800 px-3 py-1 rounded-full text-sm">SQL</span>
-            </div>
             <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Contact Information</h2>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li className="flex items-center">
