@@ -1,8 +1,12 @@
-import React from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import React from 'react'
+import HeroSection from '../components/HeroSection'
 
-const Home = () => {
-  return <></>;
-};
+function Home() {
+  return (
+    <>
+      <HeroSection/>
+    </>
+  )
+}
 
-export default Home;
+export default Home
