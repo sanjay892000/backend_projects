@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://backend-projects-2-9zms.onrender.com"],
+    origin: ["http://localhost:5173", "https://prabhatchatapp.onrender.com"],
     credentials: true,
   })
 );
