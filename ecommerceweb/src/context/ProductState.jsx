@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useState } from "react"
+import { BASEURL } from "../BaseURLs";
 
 export const ProductContext = createContext(null)
 
@@ -17,7 +18,7 @@ function ProductState({ children }) {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v3.2/product/all?page=${page}&perpage=12&category=${category}`,
+        `${BASEURL}/api/v3.2/product/all?page=${page}&perpage=12&category=${category}`,
       );
       const data = await response.json();
       setTotalPage(data.totalPage);
@@ -28,7 +29,7 @@ function ProductState({ children }) {
     } finally {
       setLoading(false);
     }
-    
+
   }, [page, category, reloadKey]);
 
   return (
