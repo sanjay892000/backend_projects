@@ -2,8 +2,9 @@ const express = require("express");
 const connectToDB = require("./databse");
 const app = express();
 const ProductRouter = require('./router/product.router')
-const cors = require('cors')
-const PORT = 8000;
+const cors = require('cors');
+require("dotenv").config();
+const PORT = process.env.PORT || 8000;
 connectToDB();
 
 app.use(cors({
