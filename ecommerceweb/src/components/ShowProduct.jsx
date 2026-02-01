@@ -36,6 +36,7 @@ function ShowProduct() {
                 discountPercentage={elm.discountPercentage}
                 category={elm.category}
                 id={elm._id}
+                currProduct={elm}
               />
             );
           })}

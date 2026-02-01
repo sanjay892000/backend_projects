@@ -1,94 +1,94 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import emptyCart from "../assets/emptycart.png";
+import { useShopState } from "../context/ShopState";
+import { X } from "lucide-react";
 
 
 
 const Carts = () => {
 
-    const [cartItems, setCartItems] = useState([])
+  const { cartItems, increaseQty, decreaseQty, removeItem, subtotal } = useShopState()
 
-    // 🛒 Empty Cart UI
-    if (cartItems.length === 0) {
-        return (
-            <section className="min-h-[70vh] flex items-center justify-center px-6">
-                <div className="text-center max-w-md">
-                    <img src={emptyCart} alt="Empty Cart" className="mx-auto w-52 mb-6" />
-
-                    <h2 className="text-2xl font-semibold mb-3">
-                        Your cart is empty
-                    </h2>
-
-                    <p className="text-gray-600 mb-8">
-                        Looks like you haven&apos;t added anything to your cart yet.
-                    </p>
-
-                    <Link
-                        to="/"
-                        className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full font-medium"
-                    >
-                        Continue Shopping
-                    </Link>
-                </div>
-            </section>
-        );
-    }
-
+  // 🛒 Empty Cart UI
+  if (cartItems?.length === 0) {
     return (
-        <section className="max-w-7xl mx-auto px-6 py-14">
-            {/* Cart Table */}
-            {/* <div className="overflow-x-auto">
+      <section className="min-h-[70vh] flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <img src={emptyCart} alt="Empty Cart" className="mx-auto w-52 mb-6" />
+
+          <h2 className="text-2xl font-semibold mb-3">
+            Your cart is empty
+          </h2>
+
+          <p className="text-gray-600 mb-8">
+            Looks like you haven&apos;t added anything to your cart yet.
+          </p>
+
+          <Link
+            to="/"
+            className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full font-medium"
+          >
+            Continue Shopping
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-14">
+      {/* Cart Table */}
+      <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead className="border-b">
             <tr className="text-left text-sm font-semibold">
               <th className="py-4">Product</th>
               <th>Title</th>
               <th>Price</th>
-              <th>Size</th>
               <th>Quantity</th>
               <th>Total</th>
-              <th className="text-center">Remove</th>
+              <th className="text-center w-22">Remove</th>
             </tr>
           </thead>
 
           <tbody>
             {cartItems.map((item) => (
-              <tr key={item.id} className="border-b text-sm">
+              <tr key={item?._id} className="border-b text-sm">
                 <td className="py-4">
                   <img
-                    src={item.image}
-                    alt={item.name}
+                    src={item?.thumbnail}
+                    alt={item?.title}
                     className="w-16 h-20 object-cover"
                   />
                 </td>
-                <td className="max-w-md">{item.name}</td>
-                <td>${item.new_price}</td>
-                <td>{item.size}</td>
+                <td className="max-w-md">{item?.title}</td>
+                <td>${item?.price}</td>
                 <td>
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => decreaseQty(item.id, item.size)}
+                      onClick={() => decreaseQty(item?._id)}
                       className="w-8 h-8 border text-lg"
                     >
                       -
                     </button>
 
-                    <span>{item.quantity}</span>
+                    <span>{item?.quantity}</span>
 
                     <button
-                      onClick={() => increaseQty(item.id, item.size)}
+                      onClick={() => increaseQty(item?._id)}
                       className="w-8 h-8 border text-lg"
                     >
                       +
                     </button>
                   </div>
                 </td>
-                <td>${item.new_price * item.quantity}</td>
+                <td>${(item?.price * item?.quantity).toFixed(2)}</td>
                 <td
-                  onClick={() => removeItem(item.id, item.size)}
+                  onClick={() => removeItem(item?._id)}
                   className="text-center text-xl cursor-pointer text-gray-500 hover:text-black"
                 >
-                  ×
+                  <X />
                 </td>
               </tr>
             ))}
@@ -138,9 +138,9 @@ const Carts = () => {
             Order Now
           </button>
         </div>
-      </div> */}
-        </section>
-    );
+      </div>
+    </section>
+  );
 };
 
 export default Carts;

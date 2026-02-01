@@ -1,23 +1,28 @@
 import { useParams } from "react-router-dom";
 import { useProduct } from "../context/ProductState";
 import { useEffect, useState } from "react";
+import { useShopState } from "../context/ShopState";
+import api from "../utils/api";
 
 function ProductDetails() {
+
+  const { addtoCart } = useShopState()
   const [currProduct, setCurrProduct] = useState({});
+  const { product } = useProduct();
   const { pid } = useParams();
-  const { product, setProduct } = useProduct();
   console.log(pid);
 
-  const findCurrProduct = () => {
-    for (let elm of product) {
-      if (elm._id == pid) {
-        setCurrProduct(elm);
-        return;
-      }
+  const findCurrProduct = async () => {
+    if (product?.length === 0) {
+      const data = await api.get(`/product/${pid}`)
+      return setCurrProduct(data.data.product);
     }
+    setCurrProduct(product.find((item) => item._id === pid));
   };
 
-  useEffect(findCurrProduct, []);
+  useEffect(() => {
+    findCurrProduct();
+  }, [pid]);
 
   console.log(currProduct);
 
@@ -34,11 +39,11 @@ function ProductDetails() {
         <div className="flex gap-4">
           {/* Thumbnails */}
           <div className="flex flex-col justify-center gap-3">
-            {currProduct?.images?.map((img) => {
+            {currProduct?.images?.map((img, i) => {
               return (
                 <img
                   src={img}
-                  alt="product thumbnail"
+                  alt={`thumbnail-${currProduct?.title}`}
                   className={`w-20 h-24 object-cover border cursor-pointer border-gray-300`}
                 />
               );
@@ -96,7 +101,7 @@ function ProductDetails() {
                     </div> */}
 
           {/* Add to Cart */}
-          <button className="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-10 py-4 rounded-full font-medium mb-6">
+          <button className="bg-red-500 cursor-pointer hover:bg-red-600 text-white px-10 py-4 rounded-full font-medium mb-6" onClick={() => addtoCart(currProduct)}>
             ADD TO CART
           </button>
 

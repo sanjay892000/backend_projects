@@ -1,64 +1,119 @@
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.png";
-import { Link, NavLink } from "react-router-dom";
-import { Sun } from "lucide-react";
+import { Link } from "react-router-dom";
+import { House, Sun } from "lucide-react";
+import { useState } from "react";
 import { useProduct } from "../context/ProductState";
+import { useShopState } from "../context/ShopState";
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
 
- const { setCategory, setProduct, setPage, setReloadKey } = useProduct();
+  const { setCategory, setProduct, setPage, setReloadKey } = useProduct();
+  const { cartItems } = useShopState();
 
- const handleCategoryReset = () => {
+  const handleCategoryReset = () => {
     setCategory("");
     setProduct([]);
     setPage(1);
     setReloadKey(prev => prev + 1);
- }
-
+    setOpen(false);
+  };
 
   return (
-    <nav className="w-full bg-white shadow-sm py-4">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex gap-16">
-            <Link to="/" className="flex items-center gap-2" onClick={handleCategoryReset}>
-              <img className="h-15" src={logo} alt="" />
-              <h1 className="text-xl font-semibold">
+    <>
+      {/* NAVBAR */}
+      <nav className="w-full bg-white shadow-sm py-4 fixed top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+
+            {/* LOGO */}
+            <Link
+              to="/"
+              onClick={handleCategoryReset}
+              className="flex items-center gap-2"
+            >
+              <img className="h-12 max-sm:h-10" src={logo} alt="logo" />
+              <h1 className="text-xl max-sm:text-sm font-semibold">
                 <span className="text-black">PRABHAT</span>
-                <span className="text-red-600 text-3xl">CENTER</span>
+                <span className="text-red-600 text-3xl max-sm:text-xl">CENTER</span>
               </h1>
             </Link>
-          </div>
 
+            {/* DESKTOP MENU */}
+            <div className="hidden md:flex items-center gap-8">
+              <Sun className="cursor-pointer" />
 
-          <div className="flex items-center gap-12">
-            <form className="relative flex items-center shadow-sm rounded-lg">
-              <i className="absolute fa fa-search text-gray-400 top-5 left-4"></i>
-              <input type="text" className="bg-white h-12 w-full pl-12 pr-3 rounded-lg focus:outline-none hover:cursor-pointer" name="" placeholder="Search here..." />
-              <button type="submit" className=" font-medium bg-red-500 py-2 px-4 mr-2 rounded-sm text-white hover:bg-red-600">Search</button>
-            </form>
+              <Link to="/carts" className="relative">
+                <ShoppingCartIcon className="h-7 w-7" />
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {cartItems?.length || 0}
+                </span>
+              </Link>
 
-            <button className="relative cursor-pointer">
-              <Sun />
-            </button>
-            <Link to="/carts" className="relative cursor-pointer">
-              <ShoppingCartIcon className="h-7 w-7 text-black" />
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                5
-              </span>
-            </Link>
+              <Link
+                to="/login"
+                className="font-medium bg-red-500 py-2 px-4 rounded-sm text-white hover:bg-white hover:outline hover:outline-red-500 hover:text-red-600"
+              >
+                Log In
+              </Link>
+            </div>
 
-            {/* Login */}
-            <Link
-              to="/login"
-              className="font-medium bg-red-500 py-2 px-4 rounded-sm text-white hover:bg-white hover:outline-1 hover:outline-red-500 hover:text-red-600"
+            {/* MOBILE MENU BUTTON */}
+            <button
+              className="md:hidden"
+              onClick={() => setOpen(true)}
             >
-              Log In
-            </Link>
+              <Bars3Icon className="h-8 w-8" />
+            </button>
+
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* OVERLAY */}
+      {open && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* SIDEBAR */}
+      <aside
+        className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg transform transition-transform duration-300
+        ${open ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between px-4 py-4 border-b">
+          <h2 className="text-lg font-bold">Menu</h2>
+          <button onClick={() => setOpen(false)}>
+            <XMarkIcon className="h-7 w-7" />
+          </button>
+        </div>
+
+        {/* Sidebar Content */}
+        <div className="flex flex-col p-4 gap-4">
+          <Link onClick={handleCategoryReset} to="/" className="flex items-center gap-3">
+           <House className="h-6 w-6"/> Home 
+          </Link>
+
+          <Link to="/carts" onClick={() => setOpen(false)} className="flex items-center gap-3">
+            <ShoppingCartIcon className="h-6 w-6" />
+            Cart ({cartItems?.length || 0})
+          </Link>
+
+          <Link to="/login" onClick={() => setOpen(false)}>
+            <button className="w-full bg-red-500 text-white py-2 rounded-md">
+              Log In
+            </button>
+          </Link>
+        </div>
+      </aside>
+
+      {/* Spacer for fixed navbar */}
+      <div className="h-24" />
+    </>
   );
 };
 

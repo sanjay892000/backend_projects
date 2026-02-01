@@ -165,4 +165,29 @@ router.get("/rating", async () => { });
 
 router.get("/price", async () => { });
 
+router.get("/:productId", async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.params.productId);
+    if (!product) {
+      return res.status(404).send({
+        success: false,
+        message: "Product not found!",
+        product: null,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      message: "Product fetched successfully!",
+      product: product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Internal server error!",
+      product: null,
+    });
+  }
+});
+
 module.exports = router;

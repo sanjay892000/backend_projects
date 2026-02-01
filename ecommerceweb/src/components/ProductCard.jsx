@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
+import { useShopState } from "../context/ShopState";
 
 function ProductCard({
     image,
@@ -9,22 +10,21 @@ function ProductCard({
     description,
     discountPercentage = 0,
     rating = 4.5,
-    category,
-    id
+    id,
+    currProduct
 }) {
+    const { addtoCart } = useShopState()
     const newPrice = (price - (price * discountPercentage) / 100).toFixed(2);
 
     return (
-        <Link
-            to={`/productdetails/${id}`}
-            className="group bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-xl transition duration-300"
+        <article className="group bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-xl transition duration-300"
         >
             {/* Image Section */}
-            <div className="relative bg-gray-100 overflow-hidden">
+            <Link className="relative bg-gray-100 overflow-hidden" to={`/productdetails/${id}`}>
                 <img
                     src={image}
                     alt={title}
-                    className="h-56 w-full object-cover group-hover:scale-105 transition duration-300"
+                    className="h-56 w-full object-contain group-hover:scale-105 transition duration-300"
                 />
 
                 {/* Discount Badge */}
@@ -33,7 +33,7 @@ function ProductCard({
                         {discountPercentage}% OFF
                     </span>
                 )}
-            </div>
+            </Link>
 
             {/* Content */}
             <div className="p-4">
@@ -76,11 +76,11 @@ function ProductCard({
                     )}
                 </div>
 
-                <button className="mt-4 w-full bg-gray-700 text-white text-sm font-semibold py-2 rounded-lg transition">
+                <button className="mt-4 w-full bg-gray-700 text-white text-sm font-semibold py-2 rounded-lg transition cursor-pointer" onClick={() => addtoCart(currProduct)}>
                     Add to Cart
                 </button>
             </div>
-        </Link>
+        </article>
     );
 }
 

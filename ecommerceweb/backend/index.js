@@ -4,12 +4,17 @@ const app = express();
 const ProductRouter = require('./router/product.router')
 const cors = require('cors');
 require("dotenv").config();
+const cookieParser = require('cookie-parser');
+
+
 const PORT = process.env.PORT || 8000;
 connectToDB();
 
 app.use(cors({
   origin: "*"
-}))
+}));
+
+app.use(cookieParser());
 
 app.use(express.json());
 
