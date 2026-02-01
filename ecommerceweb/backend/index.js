@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 8000;
 connectToDB();
 
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: ["https://itsecommerceweb.netlify.app", "http://localhost:5173"],
   credentials: true
 }));
 
