@@ -1,16 +1,23 @@
 import { ShoppingCartIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { House, Sun } from "lucide-react";
 import { useState } from "react";
 import { useProduct } from "../context/ProductState";
 import { useShopState } from "../context/ShopState";
+import { useAuthState } from "../context/AuthState";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const { setCategory, setProduct, setPage, setReloadKey } = useProduct();
   const { cartItems } = useShopState();
+  const { isLogin, logoutFunc } = useAuthState();
+
+  const logoutHandlers = () => {
+    logoutFunc()
+    setOpen(false)
+  }
 
   const handleCategoryReset = () => {
     setCategory("");
@@ -19,6 +26,7 @@ const Header = () => {
     setReloadKey(prev => prev + 1);
     setOpen(false);
   };
+
 
   return (
     <>
@@ -51,12 +59,17 @@ const Header = () => {
                 </span>
               </Link>
 
-              <Link
-                to="/login"
-                className="font-medium bg-red-500 py-2 px-4 rounded-sm text-white hover:bg-white hover:outline hover:outline-red-500 hover:text-red-600"
-              >
-                Log In
-              </Link>
+              {isLogin ? (
+                <button className="font-medium bg-red-500 py-2 px-4 rounded-sm text-white hover:bg-white hover:outline hover:outline-red-500 hover:text-red-600" onClick={logoutHandlers}>
+                  Log Out
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="font-medium bg-red-500 py-2 px-4 rounded-sm text-white hover:bg-white hover:outline hover:outline-red-500 hover:text-red-600"
+                >
+                  Log In
+                </Link>)}
             </div>
 
             {/* MOBILE MENU BUTTON */}
@@ -95,7 +108,7 @@ const Header = () => {
         {/* Sidebar Content */}
         <div className="flex flex-col p-4 gap-4">
           <Link onClick={handleCategoryReset} to="/" className="flex items-center gap-3">
-           <House className="h-6 w-6"/> Home 
+            <House className="h-6 w-6" /> Home
           </Link>
 
           <Link to="/carts" onClick={() => setOpen(false)} className="flex items-center gap-3">
@@ -103,11 +116,14 @@ const Header = () => {
             Cart ({cartItems?.length || 0})
           </Link>
 
-          <Link to="/login" onClick={() => setOpen(false)}>
-            <button className="w-full bg-red-500 text-white py-2 rounded-md">
-              Log In
+          {isLogin ? (
+            <button className="w-full bg-red-500 text-white py-2 rounded-md" onClick={logoutHandlers}>
+              Log Out
             </button>
-          </Link>
+          ) : (
+            <Link to="/login" className="w-full bg-red-500 text-white py-2 rounded-md" onClick={() => setOpen(false)}>
+              Log In
+            </Link>)}
         </div>
       </aside>
 

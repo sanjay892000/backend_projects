@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import api from "../utils/api";
 import signupImg from "../assets/signuppng.png";
+import { useAuthState } from "../context/AuthState";
 
 const Signup = () => {
-    const navigate = useNavigate();
 
+    const { signupFunc, loader } = useAuthState();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -13,7 +14,6 @@ const Signup = () => {
         confirmPassword: ""
     });
 
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const handleChange = (e) => {
@@ -36,28 +36,7 @@ const Signup = () => {
         if (password !== confirmPassword) {
             return setError("Passwords do not match");
         }
-
-        try {
-            setLoading(true);
-
-            const res = await api.post("/auth/signup", {
-                name,
-                email,
-                password
-            });
-
-            if (res.data.success) {
-                localStorage.setItem("token", res.data.token);
-                navigate("/login"); // or directly "/"
-            }
-
-        } catch (err) {
-            setError(
-                err.response?.data?.message || "Signup failed"
-            );
-        } finally {
-            setLoading(false);
-        }
+        await signupFunc({ name, email, password });
     };
 
     return (
@@ -137,10 +116,10 @@ const Signup = () => {
 
                             {/* Button */}
                             <button
-                                disabled={loading}
+                                disabled={loader}
                                 className="w-44 mt-8 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white py-3 rounded-full font-medium block mx-auto md:mx-0"
                             >
-                                {loading ? "Creating..." : "Sign up"}
+                                {loader ? "Creating..." : "Sign up"}
                             </button>
                         </form>
                     </div>

@@ -2,16 +2,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import api from "../utils/api";
 import loginImg from "../assets/loginpng.png";
+import { useAuthState } from "../context/AuthState";
 
 const Login = () => {
-    const navigate = useNavigate();
+
+    const { loginFunc, loader } = useAuthState();
 
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
 
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const handleChange = (e) => {
@@ -28,24 +29,8 @@ const Login = () => {
         if (!formData.email || !formData.password) {
             return setError("All fields are required");
         }
-
-        try {
-            setLoading(true);
-
-            const res = await api.post("/auth/login", formData);
-
-            if (res.data.success) {
-                localStorage.setItem("token", res.data.token);
-                navigate("/"); // redirect after login
-            }
-
-        } catch (err) {
-            setError(
-                err.response?.data?.message || "Login failed"
-            );
-        } finally {
-            setLoading(false);
-        }
+        
+        await loginFunc(formData);
     };
 
     return (
@@ -110,10 +95,10 @@ const Login = () => {
 
                             {/* Button */}
                             <button
-                                disabled={loading}
+                                disabled={loader}
                                 className="w-40 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white py-3 rounded-full font-medium block mx-auto md:mx-0"
                             >
-                                {loading ? "Logging in..." : "Login"}
+                                {loader ? "Logging in..." : "Login"}
                             </button>
                         </form>
                     </div>

@@ -31,8 +31,8 @@ router.post('/signup', async (req, res) => {
             user: user
         })
     } catch (error) {
-        res.status(500).json({ success: false, message: "internal server error" })
         console.log(error)
+        res.status(500).json({ success: false, message: "internal server error" })
     }
 })
 
@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         generateToken(user._id, res);
         res.status(200).json({
             success: true,
-            message: "User logged in successfully",
+            message: "Logged in successfully",
             user: user
         })
 
@@ -73,11 +73,34 @@ router.post('/logout', authVerification, (req, res) => {
     });
     res.status(200).json({
         success: true,
-        message: "User logged out successfully!"
+        message: "Logged out successfully!"
     });
 });
 
-
+router.get('/check', authVerification, async (req, res) => {
+    try {
+        const user = await authModel
+            .findById(req.user)
+            .select("-password");
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "User is authenticated",
+            user: user
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error checking authentication"
+        });
+    }
+});
 
 
 router.get('/profile', authVerification, async (req, res) => {

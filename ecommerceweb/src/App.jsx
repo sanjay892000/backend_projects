@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -8,7 +8,24 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Carts from "./pages/Carts";
 import ShowProduct from "./components/ShowProduct";
+import { useAuthState } from "./context/AuthState";
+import FancyLoader from "./components/loader/FancyLoader";
+
 function App() {
+
+  const { isCheckingAuth, checkAuth, user } = useAuthState();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  
+  if (isCheckingAuth) {
+    return <FancyLoader />;
+  }
+  console.log(user)
+
+
   return (
     <>
       <Header />

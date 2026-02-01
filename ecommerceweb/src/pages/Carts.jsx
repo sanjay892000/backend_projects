@@ -3,12 +3,14 @@ import { useState } from "react";
 import emptyCart from "../assets/emptycart.png";
 import { useShopState } from "../context/ShopState";
 import { X } from "lucide-react";
+import { useAuthState } from "../context/AuthState";
 
 
 
 const Carts = () => {
 
   const { cartItems, increaseQty, decreaseQty, removeItem, subtotal } = useShopState()
+  const { isLogin } = useAuthState();
 
   // 🛒 Empty Cart UI
   if (cartItems?.length === 0) {
@@ -134,9 +136,13 @@ const Carts = () => {
             </button>
           </div>
 
-          <button className="mt-8 bg-red-500 hover:bg-red-600 text-white px-10 py-4 font-medium">
+          {isLogin ? <button className="mt-8 bg-red-500 hover:bg-red-600 text-white px-10 py-4 font-medium">
             Order Now
-          </button>
+          </button> :
+            <Link to="/login" className="mt-8 bg-red-500 hover:bg-red-600 text-white px-10 py-4 font-medium inline-block">
+              Order Now
+            </Link>
+          }
         </div>
       </div>
     </section>
