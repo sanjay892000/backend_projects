@@ -18,8 +18,8 @@ function ShowProduct() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto p-12 ">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
+    <section className="max-w-7xl mx-auto sm:px-6 px-3 py-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-8">
         {loading
           ? Array.from({ length: 12 }).map((_, i) => (
             <ProductCardSkeleton key={i} />

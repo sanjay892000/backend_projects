@@ -121,7 +121,7 @@ const Header = () => {
               Log Out
             </button>
           ) : (
-            <Link to="/login" className="w-full bg-red-500 text-white py-2 rounded-md" onClick={() => setOpen(false)}>
+            <Link to="/login" className="w-full bg-red-500 text-center text-white py-2 rounded-md" onClick={() => setOpen(false)}>
               Log In
             </Link>)}
         </div>
