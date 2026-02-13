@@ -1,3 +1,1 @@
-const baseUrls = 'http://localhost:5000';
-
-export default baseUrls;
+export const BASEURLS = "http://localhost:8000/api/v3.2"
