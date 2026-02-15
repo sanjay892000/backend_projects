@@ -90,27 +90,76 @@ const loginFunc = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ id: user._id }, SECRET_KEY, {
-            expiresIn: "7d",
-        });
 
         const userData = user.toObject();
         delete userData.password;
 
+        const token = jwt.sign({ id: user._id }, SECRET_KEY, {
+            expiresIn: "7d",
+        });
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
         return res.status(200).json({
             success: true,
             message: "Login successful!",
-            token,
             user: userData,
         });
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             success: false,
             message: "Internal Server Error!",
         });
     }
 };
+
+const checkLoginFunc = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.user).select("-password");
+        return res.status(200).json({
+            success: true,
+            message: "User is logged in!",
+            user,
+        });
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!",
+        });
+    }
+};
+
+
+const logoutFunc = (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Logout successful!",
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error!",
+        });
+    }
+};
+
+
 
 
 const profileFunc = async (req, res) => {
@@ -208,9 +257,13 @@ const deleteFunc = async (req, res) => {
     }
 };
 
+
+
 module.exports = {
     signupFunc,
     loginFunc,
+    checkLoginFunc,
+    logoutFunc,
     profileFunc,
     updateFunc,
     deleteFunc,

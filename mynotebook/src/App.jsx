@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { Route, Routes } from 'react-router-dom';
@@ -10,22 +10,41 @@ import CreateNote from './components/CreateNote';
 import ErrorPage from './page/ErrorPage';
 import Login from './page/Login';
 import Signup from './page/Signup';
+import UserProfile from './page/UserProfile';
+import { useAuthState } from './contextapi/Authstate';
+import Loader from './components/Loader';
+import ProtectAuth from './components/ProtectAuth';
 
 function App() {
+
+  const { checkLoginStatus, loader } = useAuthState();
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, [])
+
+  if (loader) {
+    return (
+      <Loader />
+    )
+  }
+
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/notes' element={<Notes/>} />
-        <Route path='/about' element={<About/>} />
-        <Route path='/contact' element={<Contact/>} />
-        <Route path='/createnote' element={<CreateNote/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<Signup/>} />
-        <Route path='*' element={<ErrorPage/>} />
+        <Route path='/' element={<Home />} />
+        <Route path='/notes' element={<Notes />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/createnote' element={<ProtectAuth><CreateNote /></ProtectAuth>} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<UserProfile />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   )
 }

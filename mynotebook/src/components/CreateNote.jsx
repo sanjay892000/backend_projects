@@ -1,64 +1,134 @@
-import { Link } from "react-router-dom"
+import { use, useState } from "react";
+import CreatableSelect from "react-select/creatable";
 
 const CreateNote = () => {
+
+    const [isPrivate, setIsPrivate] = useState(true);
+    const [tags, setTags] = useState([]);
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [image, setImage] = useState(null)
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const tag = tags.map((t) => t.value);
+        console.log({ title, description, isPrivate, tag: tag, image })
+    };
 
     return (
         <div className='flex px-6 flex-col items-center pb-16 bg-gray-100'>
             <div className="mx-auto pt-12 max-w-xl text-center">
-                <h1 className="text-3xl capitalize font-bold dark:text-gray-800 sm:text-5xl">
+                <h1 className="text-3xl capitalize font-bold sm:text-5xl">
                     Create note with
-                    <strong className="font-bold text-red-700 py-3 sm:block"> - safe and secure </strong>
+                    <strong className="font-bold text-rose-700 py-3 sm:block">
+                        - safe and secure
+                    </strong>
                 </h1>
             </div>
-            <form className="mt-6 w-1/2 max-lg:w-full mb-0 space-y-4 rounded-lg p-4 shadow-sm sm:p-6 lg:p-8">
 
+            <form
+                onSubmit={handleSubmit}
+                className="mt-6 w-1/2 max-lg:w-full mb-0 space-y-6 rounded-lg p-4 shadow-sm sm:p-6 lg:p-8 bg-white"
+            >
+
+                {/* Title */}
                 <div>
-                    <label htmlFor="title" className="">Title<span className='text-rose-500'>*</span></label>
-                    <div className="relative">
-                        <input id='title'
-                            name='title'
-                            type="text"
-                            className="w-full border-2 rounded-lg outline-none border-gray-200 mt-2 p-4 pe-12 text-sm shadow-xs"
-                            placeholder="Enter notes title"
-                        />
-                    </div>
+                    <label className="block text-sm font-medium" htmlFor="title">Title <span className='text-rose-500'>*</span></label>
+                    <input
+                        id='title'
+                        name='title'
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                        className="w-full border-2 rounded-lg outline-none border-gray-200 mt-2 p-4 text-sm focus:border-rose-500"
+                        placeholder="Enter notes title"
+                    />
                 </div>
 
-                <div className='mt-5'>
-                    <label htmlFor="description" className="">Description <span className='text-rose-500'>*</span></label>
-
-                    <div className="relative">
-                        <textarea id='description' name='description' rows={5} cols={100}
-                            type="description"
-                            className="w-full mt-2 border-2 outline-none rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
-                            placeholder="Enter notes description"
-                        />
-                    </div>
+                {/* Description */}
+                <div>
+                    <label className="block text-sm font-medium" htmlFor="description">
+                        Description <span className='text-rose-500'>*</span>
+                    </label>
+                    <textarea
+                        id='description'
+                        name='description'
+                        rows={5}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                        className="w-full mt-2 border-2 outline-none rounded-lg border-gray-200 p-4 text-sm focus:border-rose-500"
+                        placeholder="Enter notes description"
+                    />
                 </div>
-                <fieldset className="w-full space-y-1 dark:text-gray-800">
-                    <label htmlFor="files" className="block text-sm font-medium">Attachments</label>
-                    <div className="flex">
-                        <input type="file" name="files" id="files" className="px-3 py-6 border-2 border-dashed rounded-md dark:border-gray-300 dark:text-gray-600 dark:bg-gray-100" />
-                    </div>
+
+                {/* Tags */}
+                <div>
+                    <label className="block text-sm mb-2 font-medium">
+                        Tags
+                    </label>
+                    <CreatableSelect
+                        isMulti
+                        value={tags}
+                        onChange={setTags}
+                        placeholder="Type and press Enter..."
+                    />
+                </div>
+
+                {/* Toggle Private/Public */}
+                <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">
+                        {isPrivate ? "Private Note 🔒" : "Public Note 🌍"}
+                    </span>
+
+                    <button
+                        type="button"
+                        onClick={() => setIsPrivate(!isPrivate)}
+                        className={`w-14 h-7 flex items-center rounded-full p-1 transition ${isPrivate ? "bg-rose-600" : "bg-gray-300"
+                            }`}
+                    >
+                        <div
+                            className={`bg-white w-5 h-5 rounded-full shadow-md transform transition ${isPrivate ? "translate-x-7" : ""
+                                }`}
+                        ></div>
+                    </button>
+                </div>
+
+                {/* Attachment */}
+                <fieldset className="w-full space-y-1">
+                    <label htmlFor="files" className="block text-sm font-medium">
+                        Attachments
+                    </label>
+                    <input
+                        type="file"
+                        name="files"
+                        onChange={(e) => setImage(e.target.files[0])}
+                        id="files"
+                        className="px-3 py-6 border-2 border-dashed rounded-md"
+                    />
                 </fieldset>
 
-                <div className='flex mt-5 justify-between  gap-5'>
+                {/* Buttons */}
+                <div className='flex mt-5 justify-between gap-5'>
+                    <button type="button"
+                        className="block max-sm:w-32 rounded-lg bg-rose-900 hover:bg-rose-950 px-5 py-3 text-sm font-medium text-white text-center"
+                        onClick={() => window.history.back()}
+                    >
+                        Cancel
+                    </button>
                     <button
                         type="submit"
-                        className="block max-sm:w-32 rounded-lg bg-rose-600 px-5 py-3 text-sm font-medium text-white"
+                        className="block max-sm:w-32 rounded-lg bg-rose-600 hover:bg-rose-700 px-5 py-3 text-sm font-medium text-white"
                     >
                         Add Notes
                     </button>
-                    <Link to="/notes"
-                        type="submit"
-                        className="block max-sm:w-32 rounded-lg bg-rose-900 px-5 py-3 text-sm font-medium text-white"
-                    >
-                        Your Notes
-                    </Link>
                 </div>
+
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default CreateNote
+export default CreateNote;

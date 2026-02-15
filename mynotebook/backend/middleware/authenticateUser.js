@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
-
+const UserModel = require("../schema/user.model");
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const token = req.header("token");
-
+    const token = req.cookies.token;
+    console.log(req.cookies)
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -22,7 +22,7 @@ const authenticateUser = async (req, res, next) => {
       });
     }
 
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await UserModel.findById(decoded.id).select("-password");
 
     if (!user) {
       return res.status(401).json({

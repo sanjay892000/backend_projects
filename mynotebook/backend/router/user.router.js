@@ -3,6 +3,8 @@ const router = express.Router();
 const authenticateUser = require("../middleware/authenticateUser");
 const { signupFunc,
     loginFunc,
+    checkLoginFunc,
+    logoutFunc,
     profileFunc,
     updateFunc,
     deleteFunc, } = require('../controllers/auth.controller')
@@ -10,6 +12,10 @@ const { signupFunc,
 router.post("/signup", signupFunc);
 
 router.post("/login", loginFunc);
+
+router.get("/checklogin", authenticateUser, checkLoginFunc);
+
+router.post("/logout", authenticateUser, logoutFunc);
 
 router.get("/profile", authenticateUser, profileFunc);
 

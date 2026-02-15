@@ -8,11 +8,9 @@ export const authContext = createContext(null);
 function AuthState({ children }) {
   const [loader, setLoader] = useState(false);
 
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("token") || false,
-  );
+  const [isLogin, setIsLogin] = useState(false);
 
-  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -44,11 +42,11 @@ function AuthState({ children }) {
   };
 
   const loginFunc = async (loginUser, setLoginUser) => {
-    console.log(loginUser);
     setLoader(true);
     try {
       const res = await fetch(`${BASEURLS}/auth/login`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -56,11 +54,9 @@ function AuthState({ children }) {
       });
 
       const data = await res.json();
-      console.log(data);
       if (data.success) {
-        localStorage.setItem("token", data.token);
-        setUser(data.user);
-        setIsLogin(data.token);
+        setProfile(data.user);
+        setIsLogin(true);
         setLoginUser({ email: "", password: "" });
         successEmitter(data.message);
         navigate("/");
@@ -74,12 +70,93 @@ function AuthState({ children }) {
     }
   };
 
-  const logoutFunc = () => {
-    localStorage.removeItem("token");
-    setIsLogin(false);
-    successEmitter("Logout successfully!");
-    navigate("/login");
+  const logoutFunc = async () => {
+
+    setLoader(true);
+    try {
+      const res = await fetch(`${BASEURLS}/auth/logout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setProfile(null);
+        setIsLogin(false);
+        successEmitter("Logout successfully!");
+        navigate("/login");
+      }
+      else {
+        errorEmitter(data.message || "Logout failed. Please try again.");
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoader(false);
+    }
   };
+
+
+  const checkLoginStatus = async () => {
+    setLoader(true);
+    try {
+      const res = await fetch(`${BASEURLS}/auth/checklogin`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setProfile(data.user);
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+        setProfile(null);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const updateProfile = async (updatedData) => {
+    setLoader(true);
+    try {
+      const res = await fetch(`${BASEURLS}/auth/profile`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setProfile(data.user);
+        successEmitter(data.message);
+      }
+      else {
+        errorEmitter(data.message);
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      setLoader(false);
+    }
+  };
+
+
+
 
   return (
     <authContext.Provider
@@ -89,8 +166,10 @@ function AuthState({ children }) {
         signupFunc,
         loginFunc,
         isLogin,
-        user,
+        profile,
         logoutFunc,
+        updateProfile,
+        checkLoginStatus
       }}
     >
       {children}

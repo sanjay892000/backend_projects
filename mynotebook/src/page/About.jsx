@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
+import { useAuthState } from "../contextapi/Authstate"
 
 function About() {
+
+    const { isLogin } = useAuthState();
 
     return (
         <section className="dark:bg-gray-100 px-12 md:px-6 dark:text-gray-800">
@@ -21,7 +24,7 @@ function About() {
                     <p className="mt-6 mb-8 text-lg sm:mb-12">myNoteBook is made from the pain of writing all the things in notebook which is very hectic So we mad an online web platform where you can create, edit, upload, delete your notes/information privately and securely without any disturbancee. you can also access your notes anywhere in your world, at anytime time . So dont forget to Create note because creating anything is always important
                     </p>
                     <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-                        <Link className="px-8 py-3 text-lg font-semibold border rounded bg-rose-500 text-white dark:border-rose-800">Create New Note</Link>
+                        <Link to="/createnote" className="px-8 py-3 text-lg font-semibold border rounded bg-rose-500 text-white dark:border-rose-800">Create New Note</Link>
                     </div>
                 </div>
                 <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
@@ -33,13 +36,13 @@ function About() {
                     <img src="https://itsnotebookapp.netlify.app/assets/Information-B7MgrKVK.png" alt="" className="object-cover h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128" />
                 </div>
                 <div className="flex flex-col justify-center py-6 pr-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
-                    <h1 className="text-5xl font-bold leading-none sm:text-4xl">Powering the 
+                    <h1 className="text-5xl font-bold leading-none sm:text-4xl">Powering the
                         <span className="dark:text-rose-600"> internet’s visuals</span>
                     </h1>
                     <p className="mt-6 mb-8 text-lg sm:mb-12">How we started? The concept was simple. myNoteBook was born from the pain of writing all the things in notebook which is very hectic. An online web platform where you can create, edit, upload, delete your notes/information privately and securely without any disturbancee
                     </p>
                     <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-                        <Link className="px-8 py-3 text-lg font-semibold border rounded bg-rose-500 text-white dark:border-rose-800">Sign up Now</Link>
+                        <Link to={isLogin ? "/" : "/signup"} className="px-8 py-3 text-lg font-semibold border rounded bg-rose-500 text-white dark:border-rose-800">{isLogin ? "Go to Dashboard" : "Sign up Now"}</Link>
                     </div>
                 </div>
 
